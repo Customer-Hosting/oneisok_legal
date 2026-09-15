@@ -33,10 +33,6 @@
 <link rel="stylesheet" href="assets/css/pages.css">
 <link rel="stylesheet" href="assets/css/animation.css">
 <link rel="stylesheet" href="assets/css/pages-extra.css">
-
-<script>
-  try { var t = localStorage.getItem("theme"); if (t) document.documentElement.setAttribute("data-theme", t); } catch (e) {}
-</script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -223,12 +219,6 @@
             <i class="ph ph-paper-plane-tilt" aria-hidden="true"></i> Send Enquiry
           </button>
 
-          <p class="backend-note">
-            <i class="ph ph-info" aria-hidden="true"></i>
-            <span><strong>No backend connected.</strong> This form validates in the browser,
-            then opens a prefilled WhatsApp or email message. To post to a server instead,
-            set <code>form.endpoint</code> in <code>assets/js/site-config.js</code>.</span>
-          </p>
         </form>
       </div>
 
@@ -236,7 +226,7 @@
   </section>
 
   <!-- ================= MAP ================= -->
-  <section class="section" style="padding-top:0;">
+  <section class="section section--sunken" style="padding-top:0;">
     <div class="container" data-reveal>
       <div class="section-head" style="margin-bottom:var(--sp-6);">
         <span class="eyebrow">Find us</span>

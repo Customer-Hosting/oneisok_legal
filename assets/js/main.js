@@ -445,23 +445,6 @@
   }
 
   /* ------------------------------------------------------------------
-     THEME TOGGLE
-     ------------------------------------------------------------------ */
-  function initTheme() {
-    document.querySelectorAll(".theme-toggle").forEach(function (btn) {
-      btn.addEventListener("click", function () {
-        var current = document.documentElement.getAttribute("data-theme");
-        if (!current) {
-          current = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
-        }
-        var next = current === "dark" ? "light" : "dark";
-        document.documentElement.setAttribute("data-theme", next);
-        try { localStorage.setItem("theme", next); } catch (e) {}
-      });
-    });
-  }
-
-  /* ------------------------------------------------------------------
      SCROLL REVEAL
      ------------------------------------------------------------------ */
   function initReveal() {
@@ -575,25 +558,42 @@
   }
 
   /* ------------------------------------------------------------------
-     TESTIMONIAL SLIDER
+     TESTIMONIAL SLIDER — continuous auto-scroll, pauses on hover/focus
+     via CSS (animation-play-state). The track's slides are cloned once
+     here (rather than duplicated by hand in the HTML) so the loop and
+     the source list can never drift out of sync.
+
+     The CSS animation used to translate by a flat -50%, assuming the
+     clone exactly doubles the track's width. Any rounding in flex-basis
+     or a font swap reflow after the clone ran was enough to put that
+     midpoint a few pixels off the real seam, so the strip visibly ran
+     out of cards and sat empty for a moment before jumping back. Instead
+     we measure the real pixel width of one full set after the clone has
+     been laid out, and drive the animation off that exact distance via
+     a CSS custom property — so the loop point is always the true seam.
      ------------------------------------------------------------------ */
   function initSlider() {
-    document.querySelectorAll(".slider").forEach(function (slider) {
-      var viewport = slider.querySelector(".slider__viewport");
-      var prev = slider.querySelector("[data-slide='prev']");
-      var next = slider.querySelector("[data-slide='next']");
-      if (!viewport) return;
+    document.querySelectorAll("[data-testimonial-track]").forEach(function (track) {
+      var slides = Array.prototype.slice.call(track.children);
+      slides.forEach(function (slide) {
+        var clone = slide.cloneNode(true);
+        clone.setAttribute("aria-hidden", "true");
+        track.appendChild(clone);
+      });
 
-      function step() {
-        var slide = viewport.querySelector(".slider__slide");
-        return slide ? slide.offsetWidth + 24 : viewport.clientWidth;
+      function measure() {
+        var trackStyles = getComputedStyle(track);
+        var gap = parseFloat(trackStyles.columnGap || trackStyles.gap) || 0;
+        var distance = slides.reduce(function (sum, slide) {
+          return sum + slide.getBoundingClientRect().width + gap;
+        }, 0);
+        track.style.setProperty("--marquee-distance", distance + "px");
+        track.style.setProperty("--marquee-duration", Math.max(distance / 90, 10) + "s");
       }
-      if (prev) prev.addEventListener("click", function () {
-        viewport.scrollBy({ left: -step(), behavior: prefersReduced ? "auto" : "smooth" });
-      });
-      if (next) next.addEventListener("click", function () {
-        viewport.scrollBy({ left: step(), behavior: prefersReduced ? "auto" : "smooth" });
-      });
+
+      measure();
+      window.addEventListener("resize", measure);
+      if (document.fonts && document.fonts.ready) document.fonts.ready.then(measure);
     });
   }
 
@@ -612,14 +612,15 @@
   }
 
   function serviceCard(s) {
+    var href = "service-detail.html?s=" + s.slug;
     return (
       '<article class="service-card" data-reveal data-reveal-stagger>' +
         '<span class="service-card__icon" aria-hidden="true"><i class="ph ' + s.icon + '"></i></span>' +
-        '<h3><a href="service-detail.html?s=' + s.slug + '">' + s.title + "</a></h3>" +
+        '<h3><a href="' + href + '">' + s.title + "</a></h3>" +
         "<p>" + s.excerpt + "</p>" +
         '<div class="service-card__foot">' +
           '<span class="service-card__time"><i class="ph ph-clock" aria-hidden="true"></i>' + (s.timeline || "") + "</span>" +
-          '<span class="link-arrow">Details <i class="ph ph-arrow-right" aria-hidden="true"></i></span>' +
+          '<a class="link-arrow" href="' + href + '">Details <i class="ph ph-arrow-right" aria-hidden="true"></i></a>' +
         "</div>" +
       "</article>"
     );
@@ -999,7 +1000,6 @@
       initScrollUI();
       initDropdowns();
       initDrawer();
-      initTheme();
       initReveal();
       initCounters();
       initAccordion();

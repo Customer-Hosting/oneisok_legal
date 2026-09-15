@@ -200,19 +200,37 @@
    -------------------------------------------------------------------------- */
 .reason-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 1px;
   background: var(--border);
   border: 1px solid var(--border);
   border-radius: var(--r-md);
   overflow: hidden;
 }
+@media (max-width: 767px) {
+  .reason-grid { grid-template-columns: 1fr; }
+}
 .reason {
+  position: relative;
   padding: var(--sp-8) var(--sp-6);
   background: var(--surface);
+  overflow: hidden;
   transition: background-color var(--dur-base) var(--ease-out);
 }
-.reason:hover { background: var(--bg-subtle); }
+.reason::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  width: 3px; height: 100%;
+  background: var(--gold-400);
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform var(--dur-base) var(--ease-out);
+}
+.reason:hover {
+  background: var(--bg-subtle);
+}
+.reason:hover::before { transform: scaleY(1); }
 .reason__n {
   display: block;
   font-family: var(--font-display);
@@ -226,7 +244,9 @@
   font-size: 1.9rem;
   color: var(--accent);
   margin-bottom: var(--sp-4);
+  transition: transform var(--dur-base) var(--ease-out);
 }
+.reason:hover i { transform: scale(1.15); }
 .reason h3 { font-size: var(--fs-md); margin-bottom: var(--sp-3); }
 .reason p { font-size: var(--fs-sm); color: var(--text-muted); }
 
@@ -260,12 +280,9 @@
   height: 100%;
   object-fit: cover;
   object-position: center top;
-  filter: grayscale(1) contrast(1.02);
-  transition: filter var(--dur-slow) var(--ease-out),
-              transform var(--dur-slow) var(--ease-out);
+  transition: transform var(--dur-slow) var(--ease-out);
 }
 .member:hover .member__photo img {
-  filter: grayscale(0);
   transform: scale(1.03);
 }
 

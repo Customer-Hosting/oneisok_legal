@@ -206,15 +206,22 @@
 
 .hero__dot {
   position: relative;
-  width: 52px;
+  width: 28px;
   height: 3px;
   padding: 0;
   background: rgba(255, 255, 255, 0.26);
   border: none;
   border-radius: var(--r-sm);
   cursor: pointer;
-  overflow: hidden;
+  overflow: visible;
   transition: background-color var(--dur-fast) var(--ease-out);
+}
+/* The visible bar stays 3px; the tap target is enlarged invisibly so it
+   still meets a comfortable touch-target size on mobile. */
+.hero__dot::before {
+  content: "";
+  position: absolute;
+  inset: -21px -6px;
 }
 .hero__dot:hover { background: rgba(255, 255, 255, 0.45); }
 .hero__dot:focus-visible {
@@ -227,7 +234,14 @@
    RESPONSIVE
    -------------------------------------------------------------------------- */
 @media (max-width: 767px) {
-  .hero { min-height: clamp(30rem, 80vh, 40rem); }
+  /* Stacked CTA buttons (below) need more vertical room than the desktop
+     side-by-side row, so the mobile floor must be taller than desktop's
+     shrunk 80vh, not shorter — otherwise the second button falls below
+     the visible viewport. */
+  .hero { min-height: clamp(34rem, 100vh, 46rem); }
+  .hero__inner {
+    padding-block: clamp(4.5rem, 3.5rem + 4vw, 5.5rem) clamp(2.5rem, 2rem + 3vw, 3.5rem);
+  }
   .hero__overlay {
     background:
       linear-gradient(180deg,
@@ -236,10 +250,9 @@
         rgba(6, 13, 24, 0.86) 100%);
   }
   .hero__controls-inner { justify-content: center; }
-  .hero__arrows { order: 2; }
-  .hero__dots { order: 1; width: 100%; justify-content: center; }
-  .hero__dot { width: 36px; }
-  .hero__count { display: none; }
+  .hero__dots { width: 100%; justify-content: center; }
+  .hero__dot { width: 22px; }
+  .hero__actions { margin-top: var(--sp-6); gap: var(--sp-3); }
   .hero__actions .btn { flex: 1 1 100%; }
 }
 
@@ -257,46 +270,68 @@
 }
 
 /* ==========================================================================
-   TRUST STRIP — sits directly under the hero
+   TRUST STRIP — sits directly under the hero, as elevated cards
    ========================================================================== */
 .trust-strip {
   background: var(--color-primary);
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-  padding-block: clamp(1.5rem, 1rem + 2vw, 2.25rem);
+  padding-block: clamp(2rem, 1.5rem + 2.5vw, 3rem);
 }
 
 .trust-strip__inner {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: var(--sp-6);
+  gap: var(--sp-5);
 }
 
 .trust-strip__item {
+  /* This card is always a light surface, in every theme (it sits on the
+     dark hero/trust-strip background by design), so its text colors are
+     fixed rather than following --text/--text-muted, which flip to
+     light-on-dark values in dark mode and would wash out on white. */
+  position: relative;
   display: flex;
   align-items: flex-start;
   gap: var(--sp-4);
+  padding: var(--sp-5);
+  background: var(--white);
+  border-radius: var(--r-lg);
+  box-shadow: var(--sh-md);
   font-size: var(--fs-sm);
-  color: var(--navy-200);
+  color: var(--charcoal-500);
+  overflow: hidden;
+  transition: transform var(--dur-base) var(--ease-out), box-shadow var(--dur-base) var(--ease-out);
 }
-.trust-strip__item + .trust-strip__item {
-  padding-left: var(--sp-6);
-  border-left: 1px solid rgba(255, 255, 255, 0.10);
+.trust-strip__item::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 3px;
+  background: var(--gold-500);
+}
+.trust-strip__item:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--sh-lg);
 }
 .trust-strip__item i {
   flex-shrink: 0;
-  font-size: 1.6rem;
-  color: var(--gold-400);
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--r-sm);
+  background: var(--accent-soft);
+  color: var(--gold-600);
+  font-size: 1.3rem;
 }
 .trust-strip__item b {
   display: block;
-  color: var(--color-white);
-  font-weight: 600;
+  color: var(--charcoal-800);
+  font-weight: 700;
   margin-bottom: 2px;
 }
 
 @media (max-width: 991px) {
   .trust-strip__inner { grid-template-columns: repeat(2, 1fr); }
-  .trust-strip__item:nth-child(3) { padding-left: 0; border-left: 0; }
 }
 @media (max-width: 575px) {
   .trust-strip__inner { grid-template-columns: 1fr; gap: var(--sp-4); }

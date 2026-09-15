@@ -33,10 +33,6 @@
 <link rel="stylesheet" href="assets/css/pages.css">
 <link rel="stylesheet" href="assets/css/animation.css">
 <link rel="stylesheet" href="assets/css/pages-extra.css">
-
-<script>
-  try { var t = localStorage.getItem("theme"); if (t) document.documentElement.setAttribute("data-theme", t); } catch (e) {}
-</script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -220,15 +216,6 @@
             <i class="ph ph-paper-plane-tilt" aria-hidden="true"></i> Request My Quote
           </button>
 
-          <p class="backend-note">
-            <i class="ph ph-info" aria-hidden="true"></i>
-            <span><strong>No backend connected.</strong> This is a static site: the form
-            validates in the browser and then opens a prefilled WhatsApp or email message.
-            Nothing is stored on a server and no database is involved. To POST to a PHP
-            mailer or API later, set <code>form.endpoint</code> in
-            <code>assets/js/site-config.js</code> — the handler already sends the same
-            <code>FormData</code> and falls back to WhatsApp if the request fails.</span>
-          </p>
         </form>
       </div>
 

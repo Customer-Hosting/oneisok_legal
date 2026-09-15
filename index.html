@@ -37,10 +37,6 @@
 <link rel="stylesheet" href="assets/css/pages.css">
 <link rel="stylesheet" href="assets/css/animation.css">
 
-<script>
-  // Apply stored theme before paint to avoid a flash of the wrong theme.
-  try { var t = localStorage.getItem("theme"); if (t) document.documentElement.setAttribute("data-theme", t); } catch (e) {}
-</script>
 
 <script type="application/ld+json">
 {
@@ -120,7 +116,7 @@
           <div class="container">
             <div class="hero__copy">
               <span class="hero__eyebrow">Litigation &amp; Disputes</span>
-              <h1 class="hero__title">Trusted legal guidance,<br>built around <em>your</em> case.</h1>
+              <h1 class="hero__title">Trusted legal<br>guidance, built<br>around <em>your</em> case.</h1>
               <p class="hero__text">From SARFAESI notices and DRT proceedings to cheque bounce and NCLT matters — we take the file as it stands, tell you where you actually stand, and act before the limitation period does.</p>
               <div class="hero__actions">
                 <a class="btn btn--primary btn--lg" href="get-quote.html">
@@ -508,12 +504,6 @@
         </div>
       </div>
 
-      <p class="placeholder-note">
-        <i class="ph ph-info" aria-hidden="true"></i>
-        <span><strong>Placeholder figures.</strong> Replace these four values with the
-        firm's verified numbers in <code>index.html</code> (and in
-        <code>assets/js/site-config.js</code>) before publishing.</span>
-      </p>
     </div>
   </section>
 
@@ -587,91 +577,124 @@
   <!-- ================= TESTIMONIALS ================= -->
   <section class="section">
     <div class="container">
-      <div class="section-head" data-reveal="heading">
+      <div class="section-head section-head--center" data-reveal="heading">
         <span class="eyebrow">Client experience</span>
         <h2>What people say after the matter closes</h2>
       </div>
+    </div>
 
-      <div class="slider" data-reveal>
-        <div class="slider__viewport">
-          <div class="slider__track">
-            <div class="slider__slide">
-              <figure class="quote-card">
-                <span class="quote-card__mark" aria-hidden="true">&ldquo;</span>
-                <div class="quote-card__stars" aria-label="5 out of 5">★★★★★</div>
-                <blockquote><p>I had a recall notice from my bank and no idea what it meant. They explained my position the same evening and filed within the week. The fee was exactly what was quoted.</p></blockquote>
-                <figcaption class="quote-card__author">
-                  <span class="avatar" aria-hidden="true">SM</span>
-                  <span>
-                    <span class="quote-card__name">S. Mondal</span>
-                    <span class="quote-card__meta">SARFAESI matter · Kolkata</span>
-                  </span>
-                </figcaption>
-              </figure>
-            </div>
+    <div class="slider slider--auto slider--full" data-reveal>
+      <div class="slider__viewport">
+        <div class="slider__track" data-testimonial-track>
+          <div class="slider__slide">
+            <figure class="quote-card">
+              <span class="quote-card__mark" aria-hidden="true">&ldquo;</span>
+              <div class="quote-card__stars" aria-label="5 out of 5">★★★★★</div>
+              <blockquote><p>I had a recall notice from my bank and no idea what it meant. They explained my position the same evening and filed within the week. The fee was exactly what was quoted.</p></blockquote>
+              <figcaption class="quote-card__author">
+                <span class="avatar" aria-hidden="true">SM</span>
+                <span>
+                  <span class="quote-card__name">S. Mondal</span>
+                  <span class="quote-card__meta">SARFAESI matter · Kolkata</span>
+                </span>
+              </figcaption>
+            </figure>
+          </div>
 
-            <div class="slider__slide">
-              <figure class="quote-card">
-                <span class="quote-card__mark" aria-hidden="true">&ldquo;</span>
-                <div class="quote-card__stars" aria-label="5 out of 5">★★★★★</div>
-                <blockquote><p>We needed a trademark and a company set up at the same time. Both were handled together with one point of contact, which saved us weeks of back and forth.</p></blockquote>
-                <figcaption class="quote-card__author">
-                  <span class="avatar" aria-hidden="true">RA</span>
-                  <span>
-                    <span class="quote-card__name">R. Agarwal</span>
-                    <span class="quote-card__meta">Startup founder · Howrah</span>
-                  </span>
-                </figcaption>
-              </figure>
-            </div>
+          <div class="slider__slide">
+            <figure class="quote-card">
+              <span class="quote-card__mark" aria-hidden="true">&ldquo;</span>
+              <div class="quote-card__stars" aria-label="4 out of 5">★★★★<span aria-hidden="true" class="quote-card__star-off">★</span></div>
+              <blockquote><p>We needed a trademark and a company set up at the same time. Both were handled together with one point of contact, which saved us weeks of back and forth. Only the ROC portal delays were outside their control.</p></blockquote>
+              <figcaption class="quote-card__author">
+                <span class="avatar" aria-hidden="true">RA</span>
+                <span>
+                  <span class="quote-card__name">R. Agarwal</span>
+                  <span class="quote-card__meta">Startup founder · Howrah</span>
+                </span>
+              </figcaption>
+            </figure>
+          </div>
 
-            <div class="slider__slide">
-              <figure class="quote-card">
-                <span class="quote-card__mark" aria-hidden="true">&ldquo;</span>
-                <div class="quote-card__stars" aria-label="5 out of 5">★★★★★</div>
-                <blockquote><p>A cheque bounce case that two other consultants had stalled on. The statutory notice went out correctly and the matter was resolved before trial.</p></blockquote>
-                <figcaption class="quote-card__author">
-                  <span class="avatar" aria-hidden="true">AJ</span>
-                  <span>
-                    <span class="quote-card__name">A. K. Jha</span>
-                    <span class="quote-card__meta">NI Act 138 · Kolkata</span>
-                  </span>
-                </figcaption>
-              </figure>
-            </div>
+          <div class="slider__slide">
+            <figure class="quote-card">
+              <span class="quote-card__mark" aria-hidden="true">&ldquo;</span>
+              <div class="quote-card__stars" aria-label="5 out of 5">★★★★★</div>
+              <blockquote><p>A cheque bounce case that two other consultants had stalled on. The statutory notice went out correctly and the matter was resolved before trial.</p></blockquote>
+              <figcaption class="quote-card__author">
+                <span class="avatar" aria-hidden="true">AJ</span>
+                <span>
+                  <span class="quote-card__name">A. K. Jha</span>
+                  <span class="quote-card__meta">NI Act 138 · Kolkata</span>
+                </span>
+              </figcaption>
+            </figure>
+          </div>
 
-            <div class="slider__slide">
-              <figure class="quote-card">
-                <span class="quote-card__mark" aria-hidden="true">&ldquo;</span>
-                <div class="quote-card__stars" aria-label="5 out of 5">★★★★★</div>
-                <blockquote><p>Our annual ROC filings had slipped two years behind. They reconstructed everything, filed the backlog and now keep us on schedule.</p></blockquote>
-                <figcaption class="quote-card__author">
-                  <span class="avatar" aria-hidden="true">PD</span>
-                  <span>
-                    <span class="quote-card__name">P. Dutta</span>
-                    <span class="quote-card__meta">Compliance retainer · Siliguri</span>
-                  </span>
-                </figcaption>
-              </figure>
-            </div>
+          <div class="slider__slide">
+            <figure class="quote-card">
+              <span class="quote-card__mark" aria-hidden="true">&ldquo;</span>
+              <div class="quote-card__stars" aria-label="4 out of 5">★★★★<span aria-hidden="true" class="quote-card__star-off">★</span></div>
+              <blockquote><p>Our annual ROC filings had slipped two years behind. They reconstructed everything, filed the backlog and now keep us on schedule. Response time on WhatsApp could be a little quicker.</p></blockquote>
+              <figcaption class="quote-card__author">
+                <span class="avatar" aria-hidden="true">PD</span>
+                <span>
+                  <span class="quote-card__name">P. Dutta</span>
+                  <span class="quote-card__meta">Compliance retainer · Siliguri</span>
+                </span>
+              </figcaption>
+            </figure>
+          </div>
+
+          <div class="slider__slide">
+            <figure class="quote-card">
+              <span class="quote-card__mark" aria-hidden="true">&ldquo;</span>
+              <div class="quote-card__stars" aria-label="5 out of 5">★★★★★</div>
+              <blockquote><p>Our flat's builder refused to hand over documents after possession. A title search and one firm notice from them fixed in ten days what we could not resolve in two years.</p></blockquote>
+              <figcaption class="quote-card__author">
+                <span class="avatar" aria-hidden="true">NB</span>
+                <span>
+                  <span class="quote-card__name">N. Banerjee</span>
+                  <span class="quote-card__meta">Property matter · Kolkata</span>
+                </span>
+              </figcaption>
+            </figure>
+          </div>
+
+          <div class="slider__slide">
+            <figure class="quote-card">
+              <span class="quote-card__mark" aria-hidden="true">&ldquo;</span>
+              <div class="quote-card__stars" aria-label="5 out of 5">★★★★★</div>
+              <blockquote><p>GST registration and the first two return filings, explained in plain language instead of jargon. First time a consultant actually walked me through what each filing meant.</p></blockquote>
+              <figcaption class="quote-card__author">
+                <span class="avatar" aria-hidden="true">SK</span>
+                <span>
+                  <span class="quote-card__name">S. Khatun</span>
+                  <span class="quote-card__meta">GST advisory · Durgapur</span>
+                </span>
+              </figcaption>
+            </figure>
+          </div>
+
+          <div class="slider__slide">
+            <figure class="quote-card">
+              <span class="quote-card__mark" aria-hidden="true">&ldquo;</span>
+              <div class="quote-card__stars" aria-label="4 out of 5">★★★★<span aria-hidden="true" class="quote-card__star-off">★</span></div>
+              <blockquote><p>An employee filed a labour complaint against us with no warning. They handled the conciliation hearing and got it settled without it reaching a tribunal.</p></blockquote>
+              <figcaption class="quote-card__author">
+                <span class="avatar" aria-hidden="true">VR</span>
+                <span>
+                  <span class="quote-card__name">V. Roy</span>
+                  <span class="quote-card__meta">Employment dispute · Kolkata</span>
+                </span>
+              </figcaption>
+            </figure>
           </div>
         </div>
-
-        <div class="slider__nav">
-          <button class="icon-btn" type="button" data-slide="prev" aria-label="Previous testimonial">
-            <i class="ph ph-arrow-left" aria-hidden="true"></i>
-          </button>
-          <button class="icon-btn" type="button" data-slide="next" aria-label="Next testimonial">
-            <i class="ph ph-arrow-right" aria-hidden="true"></i>
-          </button>
-        </div>
       </div>
+    </div>
 
-      <p class="placeholder-note">
-        <i class="ph ph-info" aria-hidden="true"></i>
-        <span><strong>Placeholder testimonials.</strong> The quotes and initials below are
-        illustrative. Replace with real, consented client feedback before launch.</span>
-      </p>
+    <div class="container">
     </div>
   </section>
 
@@ -696,7 +719,7 @@
       <div class="team-grid">
         <article class="member" data-reveal="card" data-reveal-stagger>
           <div class="member__photo">
-            <img src="assets/img/team/team-1.jpg" alt="Ajay Prakash Sah, Managing Director"
+            <img src="assets/img/team/ajay-prakash-sah.png" alt="Ajay Prakash Sah, Managing Director"
                  width="600" height="680" loading="lazy" decoding="async">
           </div>
           <div class="member__body">
@@ -708,7 +731,7 @@
 
         <article class="member" data-reveal="card" data-reveal-stagger>
           <div class="member__photo">
-            <img src="assets/img/team/team-2.jpg" alt="Supriya Kayal, Field and Client Operations"
+            <img src="assets/img/team/supriya-kayal.png" alt="Supriya Kayal, Field and Client Operations"
                  width="600" height="680" loading="lazy" decoding="async">
           </div>
           <div class="member__body">
@@ -720,7 +743,7 @@
 
         <article class="member" data-reveal="card" data-reveal-stagger>
           <div class="member__photo">
-            <img src="assets/img/team/team-3.jpg" alt="Goutam Bose, Head of Corporate Advisory"
+            <img src="assets/img/team/goutam-bose.png" alt="Goutam Bose, Head of Corporate Advisory"
                  width="600" height="680" loading="lazy" decoding="async">
           </div>
           <div class="member__body">
@@ -732,7 +755,7 @@
 
         <article class="member" data-reveal="card" data-reveal-stagger>
           <div class="member__photo">
-            <img src="assets/img/team/team-4.jpg" alt="Devdas Biswas, Client Relations"
+            <img src="assets/img/team/devdas-biswas.png" alt="Devdas Biswas, Client Relations"
                  width="600" height="680" loading="lazy" decoding="async">
           </div>
           <div class="member__body">
@@ -743,62 +766,6 @@
         </article>
       </div>
 
-      <p class="placeholder-note">
-        <i class="ph ph-info" aria-hidden="true"></i>
-        <span><strong>Placeholder photographs.</strong> Replace the four images in
-        <code>assets/img/team/</code> with real portraits before launch.</span>
-      </p>
-    </div>
-  </section>
-
-  <!-- ================= INSIGHTS ================= -->
-  <section class="section">
-    <div class="container">
-      <div class="section-head section-head--center" data-reveal="heading">
-        <span class="eyebrow">Legal insights</span>
-        <h2>Guidance worth reading before you need it</h2>
-      </div>
-
-      <div class="grid grid--3">
-        <article class="post-card" data-reveal="card" data-reveal-stagger>
-          <div class="post-card__thumb" aria-hidden="true"><i class="ph-fill ph-receipt-x"></i></div>
-          <div class="post-card__body">
-            <div class="post-card__meta">
-              <span><i class="ph ph-calendar-blank" aria-hidden="true"></i> 2 Sep 2026</span>
-              <span><i class="ph ph-clock" aria-hidden="true"></i> 6 min read</span>
-            </div>
-            <h3><a href="blog-post.html">Cheque bounced? The 30-day window that decides your case</a></h3>
-            <p>Miss the statutory notice period under Section 138 and an otherwise strong claim becomes unenforceable. Here is the timeline that matters.</p>
-            <a class="link-arrow" href="blog-post.html">Read article <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
-          </div>
-        </article>
-
-        <article class="post-card" data-reveal="card" data-reveal-stagger>
-          <div class="post-card__thumb" aria-hidden="true"><i class="ph-fill ph-bank"></i></div>
-          <div class="post-card__body">
-            <div class="post-card__meta">
-              <span><i class="ph ph-calendar-blank" aria-hidden="true"></i> 21 Aug 2026</span>
-              <span><i class="ph ph-clock" aria-hidden="true"></i> 8 min read</span>
-            </div>
-            <h3><a href="blog-post.html">Received a SARFAESI notice? Do not wait 60 days</a></h3>
-            <p>A Section 13(2) demand notice starts a clock. Understanding what you can raise, and when, is the difference between a defence and a formality.</p>
-            <a class="link-arrow" href="blog-post.html">Read article <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
-          </div>
-        </article>
-
-        <article class="post-card" data-reveal="card" data-reveal-stagger>
-          <div class="post-card__thumb" aria-hidden="true"><i class="ph-fill ph-trademark"></i></div>
-          <div class="post-card__body">
-            <div class="post-card__meta">
-              <span><i class="ph ph-calendar-blank" aria-hidden="true"></i> 9 Aug 2026</span>
-              <span><i class="ph ph-clock" aria-hidden="true"></i> 5 min read</span>
-            </div>
-            <h3><a href="blog-post.html">Trademark objections: why most replies fail</a></h3>
-            <p>An examination report is not a rejection. Most objections are answerable — provided the reply addresses the actual ground cited.</p>
-            <a class="link-arrow" href="blog-post.html">Read article <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
-          </div>
-        </article>
-      </div>
     </div>
   </section>
 

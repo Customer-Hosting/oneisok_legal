@@ -40,6 +40,17 @@
   opacity: 0.22;
 }
 
+/* Real-photo variant: the grid overlay pattern is only meant to fill
+   empty decorative panels, so it's dropped here in favor of the image. */
+.visual-panel--photo::after { display: none; }
+.visual-panel--photo img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 /* Floating stat chip over the panel */
 .float-chip {
   position: absolute;
@@ -155,8 +166,12 @@
   display: grid;
   place-items: center;
   color: var(--gold-500);
-  opacity: 0.35;
+  opacity: 0.6;
   font-size: 3rem;
+}
+.post-card__thumb svg {
+  width: clamp(72px, 22%, 110px);
+  height: auto;
 }
 .post-card__body { padding: var(--sp-6); display: flex; flex-direction: column; gap: var(--sp-3); flex-grow: 1; }
 .post-card__meta {
@@ -208,11 +223,7 @@
   width: 100%;
   aspect-ratio: 16 / 7;
   border-radius: var(--r-md);
-  filter: grayscale(1) contrast(1.05);
-  transition: filter var(--dur-slow) var(--ease-out);
 }
-.map-frame:hover { filter: none; }
-:root[data-theme="dark"] .map-frame { filter: grayscale(1) invert(0.9) contrast(0.85); }
 
 /* ---- Quote wizard ---- */
 .wizard__steps {
