@@ -1,0 +1,319 @@
+/* ==========================================================================
+   DESIGN SYSTEM — OneisOk Legal Consultancy
+   A restrained identity for a premium Indian legal consultancy.
+
+   Principles
+   1. Navy carries authority. Charcoal carries the words. Gold is earned.
+   2. Gold appears only on primary CTAs, small borders, icons, rules,
+      active and hover states. Never as a section fill.
+   3. Edges are near-square. Shadows are barely there. Motion is slight.
+   ========================================================================== */
+
+:root {
+
+  /* ======================================================================
+     1. BRAND SCALES
+     ====================================================================== */
+
+  /* Primary — deep navy / midnight blue. Authority, trust, permanence. */
+  --navy-900: #060D18;
+  --navy-800: #0A1628;   /* canonical primary */
+  --navy-700: #102038;
+  --navy-600: #172C4A;
+  --navy-500: #22395C;
+  --navy-400: #3A5176;
+  --navy-200: #8C9BB3;
+  --navy-100: #C6CEDC;
+
+  /* Secondary — dark charcoal. Body copy, UI structure. */
+  --charcoal-900: #15171A;
+  --charcoal-800: #1F2226;   /* canonical secondary */
+  --charcoal-700: #2C3035;
+  --charcoal-600: #42474E;
+  --charcoal-500: #5C626B;
+  --charcoal-400: #7C838D;
+  --charcoal-300: #A2A8B1;
+
+  /* Accent — muted / champagne gold. Deliberately desaturated so it
+     reads as brushed metal, never as yellow. */
+  --gold-700: #7A6420;
+  --gold-600: #967C2B;
+  --gold-500: #B08D3C;   /* canonical accent */
+  --gold-400: #C4A25A;
+  --gold-300: #D7BE85;
+  --gold-200: #E4D3A8;
+  --gold-100: #F0E6CC;
+  --gold-50:  #F9F5EA;
+
+  /* Neutrals — warm-tinted so the page never feels clinical. */
+  --white:    #FFFFFF;
+  --offwhite: #FAF9F7;   /* warm off-white page background */
+  --gray-100: #F2F1EE;
+  --gray-200: #E6E4DF;   /* light neutral border */
+  --gray-300: #D5D2CB;
+  --gray-400: #B8B4AB;
+
+  /* Feedback — muted to match the palette, never neon. */
+  --success: #2F6B4F;
+  --warning: #8A6524;
+  --error:   #9B3029;
+
+
+  /* ======================================================================
+     2. SEMANTIC TOKENS — the brief's named contract
+     ====================================================================== */
+
+  --color-primary:    var(--navy-800);
+  --color-secondary:  var(--charcoal-800);
+  --color-accent:     var(--gold-500);
+  --color-background: var(--offwhite);
+  --color-white:      var(--white);
+  --color-border:     var(--gray-200);
+  --color-text:       var(--charcoal-800);
+
+  --color-primary-hover: var(--navy-700);
+  --color-accent-hover:  var(--gold-700);
+  --color-accent-soft:   var(--gold-50);
+  --color-on-accent:     var(--navy-900);
+  --color-on-primary:    var(--white);
+
+
+  /* Gold used as TEXT on a light background must be gold-700 (5.44:1).
+     Gold as a FILL keeps gold-500, since navy sits on top of it (6.23:1). */
+  --color-accent-text: var(--gold-700);
+
+  /* ======================================================================
+     3. SURFACES & TEXT
+     ====================================================================== */
+
+  --bg:            var(--color-background);
+  --bg-subtle:     var(--gray-100);
+  --bg-sunken:     var(--gray-200);
+  --surface:       var(--color-white);
+  --surface-alt:   var(--gray-100);
+  --border:        var(--color-border);
+  --border-strong: var(--gray-300);
+
+  --text:        var(--color-text);
+  --text-body:   var(--charcoal-600);
+  --text-muted:  var(--charcoal-500);
+  --text-invert: var(--color-white);
+
+  --accent:       var(--color-accent);
+  --accent-hover: var(--color-accent-hover);
+  --accent-soft:  var(--color-accent-soft);
+  --accent-text:  var(--color-accent-text);
+  --on-accent:    var(--color-on-accent);
+
+
+  /* ======================================================================
+     4. TYPOGRAPHY
+     Playfair Display for headings — an elegant, high-contrast serif.
+     Inter for body — neutral and legible at small sizes.
+     ====================================================================== */
+
+  --font-display: "Playfair Display", "Iowan Old Style", Georgia, "Times New Roman", serif;
+  --font-body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+
+  /* Fluid scale — clamp() between a 360px and a 1400px viewport. */
+  --fs-xs:   clamp(0.75rem,   0.723rem + 0.12vw, 0.8125rem);
+  --fs-sm:   clamp(0.8125rem, 0.785rem + 0.12vw, 0.875rem);
+  --fs-base: clamp(0.9375rem, 0.910rem + 0.12vw, 1rem);
+  --fs-md:   clamp(1rem,      0.958rem + 0.19vw, 1.125rem);
+  --fs-lg:   clamp(1.125rem,  1.042rem + 0.37vw, 1.375rem);
+  --fs-xl:   clamp(1.375rem,  1.208rem + 0.74vw, 1.875rem);
+  --fs-2xl:  clamp(1.75rem,   1.417rem + 1.48vw, 2.75rem);
+  --fs-3xl:  clamp(2.125rem,  1.583rem + 2.41vw, 3.75rem);
+  --fs-4xl:  clamp(2.5rem,    1.75rem  + 3.33vw, 4.75rem);
+
+  /* Playfair sets tighter than a sans at display sizes. */
+  --lh-tight: 1.14;
+  --lh-snug:  1.32;
+  --lh-base:  1.7;
+  --lh-loose: 1.85;
+
+  --tracking-tight: -0.015em;
+  --tracking-normal: 0;
+  --tracking-wide:  0.01em;
+  --tracking-caps:  0.16em;
+
+
+  /* ======================================================================
+     5. SPACING & LAYOUT
+     ====================================================================== */
+
+  --sp-1: 0.25rem;  --sp-2: 0.5rem;   --sp-3: 0.75rem;
+  --sp-4: 1rem;     --sp-5: 1.25rem;  --sp-6: 1.5rem;
+  --sp-8: 2rem;     --sp-10: 2.5rem;  --sp-12: 3rem;
+  --sp-16: 4rem;    --sp-20: 5rem;    --sp-24: 6rem;
+  --sp-32: 8rem;
+
+  --section-y: clamp(3.5rem, 2rem + 7vw, 7.5rem);
+  --gutter:    clamp(1rem, 0.6rem + 2vw, 2.5rem);
+  --container: 1240px;
+  --container-narrow: 780px;
+
+
+  /* ======================================================================
+     6. RADIUS — near-square. A law firm is not a consumer app.
+     ====================================================================== */
+
+  --r-sm: 2px;
+  --r-md: 3px;
+  --r-lg: 4px;
+  --r-xl: 6px;
+  --r-2xl: 8px;
+  --r-full: 999px;   /* reserved for avatars and true pills only */
+
+
+  /* ======================================================================
+     7. ELEVATION — hairline borders do the work; shadows only hint.
+     ====================================================================== */
+
+  --sh-xs: 0 1px 2px rgba(10, 22, 40, 0.04);
+  --sh-sm: 0 1px 3px rgba(10, 22, 40, 0.06);
+  --sh-md: 0 2px 8px rgba(10, 22, 40, 0.07);
+  --sh-lg: 0 6px 20px rgba(10, 22, 40, 0.09);
+  --sh-xl: 0 12px 32px rgba(10, 22, 40, 0.11);
+
+  /* A crisp line, not a glow — used where a card must lift off the page. */
+  --sh-edge: 0 0 0 1px rgba(10, 22, 40, 0.06);
+
+
+  /* ======================================================================
+     8. MOTION — understated. Nothing bounces.
+     ====================================================================== */
+
+  --dur-fast: 140ms;
+  --dur-base: 240ms;
+  --dur-slow: 420ms;
+  --ease-out:    cubic-bezier(0.32, 0.72, 0.30, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-entry:  cubic-bezier(0.22, 0.68, 0.36, 1);
+
+
+  /* ======================================================================
+     9. LAYOUT CONSTANTS
+     ====================================================================== */
+
+  --header-h: 76px;
+  --z-base: 1;
+  --z-sticky: 100;
+  --z-header: 500;
+  --z-drawer: 800;
+  --z-modal: 900;
+  --z-toast: 1000;
+
+  --rule: 1px solid var(--border);
+}
+
+
+/* ==========================================================================
+   DARK THEME
+   Navy deepens rather than turning black, so the identity survives.
+   ========================================================================== */
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg:            var(--navy-900);
+    --bg-subtle:     var(--navy-800);
+    --bg-sunken:     #04090F;
+    --surface:       var(--navy-800);
+    --surface-alt:   var(--navy-700);
+    --border:        rgba(255, 255, 255, 0.09);
+    --border-strong: rgba(255, 255, 255, 0.16);
+
+    --color-background: var(--navy-900);
+    --color-border:     rgba(255, 255, 255, 0.09);
+    --color-text:       #ECEEF2;
+
+    --text:        #ECEEF2;
+    --text-body:   #AEB6C4;
+    --text-muted:  #8B94A4;
+    --text-invert: var(--navy-900);
+
+    --accent:       var(--gold-400);
+    --accent-hover: var(--gold-300);
+    --accent-soft:  rgba(176, 141, 60, 0.11);
+    --accent-text:  var(--gold-400);
+    --on-accent:    var(--navy-900);
+
+    --sh-xs: 0 1px 2px rgba(0, 0, 0, 0.35);
+    --sh-sm: 0 1px 3px rgba(0, 0, 0, 0.40);
+    --sh-md: 0 2px 8px rgba(0, 0, 0, 0.45);
+    --sh-lg: 0 6px 20px rgba(0, 0, 0, 0.50);
+    --sh-xl: 0 12px 32px rgba(0, 0, 0, 0.55);
+    --sh-edge: 0 0 0 1px rgba(255, 255, 255, 0.06);
+  }
+}
+
+:root[data-theme="dark"] {
+  --bg:            var(--navy-900);
+  --bg-subtle:     var(--navy-800);
+  --bg-sunken:     #04090F;
+  --surface:       var(--navy-800);
+  --surface-alt:   var(--navy-700);
+  --border:        rgba(255, 255, 255, 0.09);
+  --border-strong: rgba(255, 255, 255, 0.16);
+
+  --color-background: var(--navy-900);
+  --color-border:     rgba(255, 255, 255, 0.09);
+  --color-text:       #ECEEF2;
+
+  --text:        #ECEEF2;
+  --text-body:   #AEB6C4;
+  --text-muted:  #8B94A4;
+  --text-invert: var(--navy-900);
+
+  --accent:       var(--gold-400);
+  --accent-hover: var(--gold-300);
+  --accent-soft:  rgba(176, 141, 60, 0.11);
+  --accent-text:  var(--gold-400);
+  --on-accent:    var(--navy-900);
+
+  --sh-xs: 0 1px 2px rgba(0, 0, 0, 0.35);
+  --sh-sm: 0 1px 3px rgba(0, 0, 0, 0.40);
+  --sh-md: 0 2px 8px rgba(0, 0, 0, 0.45);
+  --sh-lg: 0 6px 20px rgba(0, 0, 0, 0.50);
+  --sh-xl: 0 12px 32px rgba(0, 0, 0, 0.55);
+  --sh-edge: 0 0 0 1px rgba(255, 255, 255, 0.06);
+}
+
+
+/* ==========================================================================
+   LEGACY ALIASES
+   Older rules still reference the previous ink-*/brass-* scale. Mapping
+   them here keeps the cascade correct while the components migrate.
+   ========================================================================== */
+
+:root {
+  --ink-900: var(--navy-900);
+  --ink-800: var(--navy-800);
+  --ink-700: var(--navy-700);
+  --ink-600: var(--navy-600);
+  --ink-500: var(--navy-500);
+
+  --brass-700: var(--gold-700);
+  --brass-600: var(--gold-600);
+  --brass-500: var(--gold-500);
+  --brass-400: var(--gold-400);
+  --brass-300: var(--gold-300);
+  --brass-100: var(--gold-100);
+  --brass-50:  var(--gold-50);
+
+  --n-0:   var(--white);
+  --n-25:  var(--offwhite);
+  --n-50:  var(--gray-100);
+  --n-100: var(--gray-100);
+  --n-200: var(--gray-200);
+  --n-300: var(--gray-300);
+  --n-400: var(--gray-400);
+  --n-500: var(--charcoal-500);
+  --n-600: var(--charcoal-600);
+  --n-700: var(--charcoal-700);
+  --n-800: var(--charcoal-800);
+  --n-900: var(--charcoal-900);
+
+  --sh-accent: var(--sh-md);
+  --ease-spring: var(--ease-out);
+}

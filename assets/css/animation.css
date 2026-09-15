@@ -1,0 +1,333 @@
+/* ==========================================================================
+   ANIMATION SYSTEM
+   Loaded last so it owns all motion. Four scroll variants, a hierarchy of
+   durations, and micro-interactions.
+
+   Rules this file enforces:
+   - Only transform, opacity, filter and clip-path animate. Never layout.
+   - Durations sit between 400ms and 800ms. Nothing bounces or spins.
+   - Not every element animates: only the roles listed in the hierarchy.
+   - prefers-reduced-motion switches everything to an instant final state.
+   ========================================================================== */
+
+:root {
+  /* Scroll-reveal durations, by role in the hierarchy. */
+  --anim-heading: 560ms;   /* section headings: fade + slight rise */
+  --anim-content: 620ms;   /* paragraphs, lists, forms: fade-up */
+  --anim-image:   760ms;   /* images: slower, more deliberate reveal */
+  --anim-card:    520ms;   /* cards: quicker, because they stagger */
+
+  /* One elegant ease-out for everything that enters. */
+  --ease-reveal: cubic-bezier(0.16, 0.84, 0.32, 1);
+
+  /* Distances. Deliberately small — this is a law firm, not a showreel. */
+  --rise-heading: 14px;
+  --rise-content: 18px;
+  --rise-card:    22px;
+
+  /* Stagger step and ceiling. */
+  --stagger-step: 80ms;
+  --stagger-max: 400ms;
+}
+
+/* --------------------------------------------------------------------------
+   BASE STATE
+   Every revealable element starts hidden and is promoted only while it
+   animates; will-change is dropped afterwards so the compositor reclaims it.
+   -------------------------------------------------------------------------- */
+[data-reveal] {
+  opacity: 0;
+  will-change: opacity, transform;
+  transition-delay: var(--reveal-delay, 0ms);
+  transition-timing-function: var(--ease-reveal);
+  transition-property: opacity, transform;
+}
+
+[data-reveal].is-visible {
+  opacity: 1;
+  transform: none;
+  will-change: auto;
+}
+
+/* --------------------------------------------------------------------------
+   VARIANT 1 — fade-in
+   For elements where movement would be noise (eyebrows, small meta rows).
+   -------------------------------------------------------------------------- */
+[data-reveal="fade"] {
+  transform: none;
+  transition-duration: var(--anim-heading);
+}
+
+/* --------------------------------------------------------------------------
+   VARIANT 2 — heading: fade + slight upward movement
+   -------------------------------------------------------------------------- */
+[data-reveal="heading"] {
+  transform: translate3d(0, var(--rise-heading), 0);
+  transition-duration: var(--anim-heading);
+}
+
+/* --------------------------------------------------------------------------
+   VARIANT 3 — content: fade-up
+   The default for body copy, lists, forms and panels.
+   -------------------------------------------------------------------------- */
+[data-reveal],
+[data-reveal="up"] {
+  transform: translate3d(0, var(--rise-content), 0);
+  transition-duration: var(--anim-content);
+}
+
+/* --------------------------------------------------------------------------
+   VARIANT 4 — cards: staggered reveal
+   Slightly further travel, faster duration, delay applied per sibling by JS.
+   -------------------------------------------------------------------------- */
+[data-reveal="card"] {
+  transform: translate3d(0, var(--rise-card), 0);
+  transition-duration: var(--anim-card);
+}
+
+/* --------------------------------------------------------------------------
+   VARIANT 5 — image reveal
+   Fades in like the content variant. (A clip-path unveil was tried here but
+   was one IntersectionObserver edge case away from leaving the image
+   permanently hidden, which is worse than no animation — plain opacity is
+   guaranteed to resolve visible even in the worst case.)
+   -------------------------------------------------------------------------- */
+[data-reveal="image"] {
+  transform: translate3d(0, var(--rise-content), 0);
+  transition-duration: var(--anim-image);
+}
+
+/* The inner image eases back from a subtle over-scale. */
+[data-reveal="image"] img,
+[data-reveal="image"] .about__img {
+  transform: scale(1.04);
+  transition: transform var(--anim-image) var(--ease-reveal);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+[data-reveal="image"].is-visible img,
+[data-reveal="image"].is-visible .about__img {
+  transform: scale(1);
+}
+
+/* --------------------------------------------------------------------------
+   COUNTERS
+   The digits fade in as the counter starts; the number itself is driven by
+   requestAnimationFrame in main.js.
+   -------------------------------------------------------------------------- */
+.stat__value {
+  font-variant-numeric: tabular-nums;   /* stops width jitter while counting */
+}
+[data-count] {
+  display: inline-block;
+  opacity: 0.4;
+  transition: opacity var(--anim-content) var(--ease-reveal);
+}
+[data-count].is-counting {
+  opacity: 1;
+}
+
+/* ==========================================================================
+   MICRO-INTERACTIONS
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   BUTTONS — subtle lift plus an accent border transition
+   -------------------------------------------------------------------------- */
+.btn {
+  transition: transform var(--dur-base) var(--ease-out),
+              background-color var(--dur-fast) var(--ease-out),
+              border-color var(--dur-fast) var(--ease-out),
+              color var(--dur-fast) var(--ease-out),
+              box-shadow var(--dur-base) var(--ease-out);
+}
+.btn:hover { transform: translate3d(0, -1px, 0); }
+.btn:active { transform: translate3d(0, 0, 0); transition-duration: 60ms; }
+
+/* Ghost buttons gain their accent edge on hover. */
+.btn--ghost { transition-property: transform, border-color, color, background-color; }
+.btn--ghost:hover { border-color: var(--accent); color: var(--accent-text); }
+
+/* --------------------------------------------------------------------------
+   CARDS — slight elevation and a border that warms toward the accent
+   -------------------------------------------------------------------------- */
+.card,
+.practice-card,
+.bcard,
+.tcard,
+.member,
+.info-card,
+.mvv,
+.service-card,
+.post-card {
+  transition: transform var(--dur-base) var(--ease-out),
+              border-color var(--dur-base) var(--ease-out),
+              box-shadow var(--dur-base) var(--ease-out);
+}
+.card:hover,
+.practice-card:hover,
+.bcard:hover,
+.tcard:hover,
+.member:hover,
+.mvv:hover,
+.service-card:hover,
+.post-card:hover {
+  transform: translate3d(0, -2px, 0);
+}
+
+/* The rule above matches every card at rest AND mid-reveal (same element,
+   same specificity as [data-reveal="card"]), so being declared later here
+   would win the tie and cut the 520ms reveal transition down to 240ms the
+   instant .is-visible is added. Repeating the attribute selector doubles
+   its specificity (0-2-0-0 vs 0-1-0-0) without needing a second class, so
+   this restores the reveal's own duration without touching the rule above. */
+[data-reveal="card"][data-reveal="card"] {
+  transition-duration: var(--anim-card);
+}
+
+/* --------------------------------------------------------------------------
+   LINKS — animated underline that grows from the left
+   -------------------------------------------------------------------------- */
+.link-arrow {
+  position: relative;
+  text-decoration: none;
+}
+.link-arrow::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 100%;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform var(--dur-base) var(--ease-out);
+}
+.link-arrow:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* Prose links get an animated gradient underline. */
+.prose p > a,
+.legal-doc p > a,
+.info-card a {
+  position: relative;
+  background-image: linear-gradient(currentColor, currentColor);
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 0% 1px;
+  transition: background-size var(--dur-base) var(--ease-out),
+              color var(--dur-fast) var(--ease-out);
+}
+.prose p > a:hover,
+.legal-doc p > a:hover,
+.info-card a:hover {
+  background-size: 100% 1px;
+}
+
+/* Footer links: plain text, no box or icon — just the word itself with a
+   native underline on hover, so it always matches the exact text width. */
+.footer__list a {
+  text-decoration: none;
+  transition: color var(--dur-fast) var(--ease-out);
+}
+.footer__list a:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* --------------------------------------------------------------------------
+   IMAGES — subtle zoom where a card frames them
+   -------------------------------------------------------------------------- */
+.bcard__media img,
+.tcard__photo img,
+.member__photo img,
+.post-card__thumb img {
+  transition: transform var(--dur-slow) var(--ease-out),
+              filter var(--dur-slow) var(--ease-out);
+}
+.bcard:hover .bcard__media img,
+.member:hover .member__photo img { transform: scale(1.04); }
+.tcard:hover .tcard__photo img { transform: scale(1.03); }
+
+/* --------------------------------------------------------------------------
+   ICONS — a short, non-spinning nudge
+   -------------------------------------------------------------------------- */
+.practice-card__icon,
+.mvv__icon,
+.info-card__icon {
+  transition: background-color var(--dur-base) var(--ease-out),
+              color var(--dur-base) var(--ease-out),
+              border-color var(--dur-base) var(--ease-out);
+}
+
+/* ==========================================================================
+   REDUCED MOTION
+   Everything lands in its final state instantly. The site stays fully
+   usable: no hidden content, no disabled interaction, just no movement.
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+
+  /* Reveals resolve immediately and stay visible. */
+  [data-reveal],
+  [data-reveal="fade"],
+  [data-reveal="heading"],
+  [data-reveal="up"],
+  [data-reveal="card"],
+  [data-reveal="image"] {
+    opacity: 1 !important;
+    transform: none !important;
+    clip-path: none !important;
+    transition: none !important;
+    animation: none !important;
+    will-change: auto !important;
+  }
+  [data-reveal="image"] img,
+  [data-reveal="image"] .about__img {
+    transform: none !important;
+    transition: none !important;
+  }
+
+  /* Hover feedback stays (it signals interactivity) but without travel,
+     and at a duration short enough not to read as motion. */
+  .btn:hover,
+  .btn:active,
+  .card:hover,
+  .practice-card:hover,
+  .bcard:hover,
+  .tcard:hover,
+  .member:hover,
+  .mvv:hover,
+  .service-card:hover,
+  .post-card:hover {
+    transform: none !important;
+  }
+  .bcard:hover .bcard__media img,
+  .tcard:hover .tcard__photo img,
+  .member:hover .member__photo img {
+    transform: none !important;
+  }
+
+  .link-arrow::after { transition: none !important; }
+
+  /* Global ceiling: nothing may animate for longer than a blink. */
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  /* Hero: no Ken Burns, no slide entrance, no dot timer. */
+  .hero__slide.is-active .hero__img { animation: none !important; transform: none !important; }
+  .hero__slide .hero__eyebrow,
+  .hero__slide .hero__title,
+  .hero__slide .hero__text,
+  .hero__slide .hero__actions {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+  }
+  .hero__dot[aria-current="true"]::after { animation: none !important; transform: scaleX(1) !important; }
+}

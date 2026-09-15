@@ -1,0 +1,340 @@
+{
+  "categories": [
+    { "id": "litigation",   "label": "Litigation & Disputes", "icon": "ph-gavel",        "blurb": "Representation and strategy across tribunals, forums and courts." },
+    { "id": "registration", "label": "Registrations",         "icon": "ph-seal-check",   "blurb": "Licences, incorporations and statutory registrations, end to end." },
+    { "id": "compliance",   "label": "Corporate Compliance",  "icon": "ph-shield-check", "blurb": "Stay filing-ready and audit-ready all year round." },
+    { "id": "property",     "label": "Property & Documents",  "icon": "ph-house-line",   "blurb": "Title, transfer and documentation handled with diligence." },
+    { "id": "financial",    "label": "Tax & Financial",       "icon": "ph-chart-line-up","blurb": "Returns, audits and books, managed by specialists." }
+  ],
+  "services": [
+    {
+      "slug": "sarfaesi-drt-drat",
+      "title": "SARFAESI, DRT & DRAT",
+      "category": "litigation",
+      "icon": "ph-bank",
+      "excerpt": "Defence and recovery strategy under the SARFAESI Act, including securitisation applications and appeals before DRT and DRAT.",
+      "featured": true,
+      "timeline": "15–45 days to first hearing",
+      "keywords": ["sarfaesi", "drt", "drat", "loan", "recovery", "bank", "securitisation", "possession"]
+    },
+    {
+      "slug": "writs-and-suits",
+      "title": "Writs & Civil Suits",
+      "category": "litigation",
+      "icon": "ph-scales",
+      "excerpt": "Drafting and prosecution of writ petitions and civil suits before High Courts and district judiciary.",
+      "featured": true,
+      "timeline": "Varies by forum",
+      "keywords": ["writ", "petition", "civil", "suit", "high court", "injunction"]
+    },
+    {
+      "slug": "nclt-proceedings",
+      "title": "NCLT & Insolvency",
+      "category": "litigation",
+      "icon": "ph-buildings",
+      "excerpt": "Company petitions, oppression and mismanagement claims, and insolvency proceedings under the IBC.",
+      "featured": true,
+      "timeline": "30–90 days to admission",
+      "keywords": ["nclt", "nclat", "ibc", "insolvency", "company petition", "oppression"]
+    },
+    {
+      "slug": "cheque-bounce",
+      "title": "Cheque Bounce (NI Act 138)",
+      "category": "litigation",
+      "icon": "ph-receipt-x",
+      "excerpt": "Statutory notice, complaint filing and trial representation in dishonoured cheque matters under Section 138.",
+      "featured": true,
+      "timeline": "Notice within 30 days",
+      "keywords": ["cheque", "bounce", "138", "ni act", "dishonour", "negotiable instrument"]
+    },
+    {
+      "slug": "negotiable-instruments",
+      "title": "Negotiable Instruments Advisory",
+      "category": "litigation",
+      "icon": "ph-note",
+      "excerpt": "Guidance on cheques, promissory notes and bills of exchange, from drafting to enforcement.",
+      "timeline": "3–7 days for opinion",
+      "keywords": ["promissory note", "bill of exchange", "negotiable", "instrument"]
+    },
+    {
+      "slug": "consumer-forum",
+      "title": "Consumer Forum Claims",
+      "category": "litigation",
+      "icon": "ph-shopping-bag-open",
+      "excerpt": "Complaints for deficiency in service or defective goods before District, State and National Commissions.",
+      "timeline": "21–60 days to file",
+      "keywords": ["consumer", "forum", "complaint", "deficiency", "refund", "commission"]
+    },
+    {
+      "slug": "bail-applications",
+      "title": "Bail Applications",
+      "category": "litigation",
+      "icon": "ph-lock-key-open",
+      "excerpt": "Regular, interim and anticipatory bail applications drafted and moved on urgent timelines.",
+      "timeline": "Same-day filing available",
+      "keywords": ["bail", "anticipatory", "interim", "arrest", "custody", "criminal"]
+    },
+    {
+      "slug": "domestic-violence",
+      "title": "Domestic Violence Support",
+      "category": "litigation",
+      "icon": "ph-hand-heart",
+      "excerpt": "Confidential assistance with protection, residence and maintenance orders under the PWDVA.",
+      "timeline": "Urgent relief prioritised",
+      "keywords": ["domestic violence", "protection order", "maintenance", "pwdva", "498a"]
+    },
+    {
+      "slug": "loan-recall-notice",
+      "title": "Loan Recall Notices",
+      "category": "litigation",
+      "icon": "ph-envelope-simple-open",
+      "excerpt": "Review of and reply to recall and demand notices issued by banks and NBFCs.",
+      "timeline": "48–72 hours",
+      "keywords": ["loan", "recall", "demand notice", "npa", "nbfc", "reply"]
+    },
+    {
+      "slug": "workplace-disputes",
+      "title": "Workplace & Labour Disputes",
+      "category": "litigation",
+      "icon": "ph-briefcase",
+      "excerpt": "Wrongful termination, unpaid dues, POSH complaints and conciliation before labour authorities.",
+      "timeline": "7–21 days",
+      "keywords": ["labour", "employment", "termination", "posh", "gratuity", "workplace"]
+    },
+
+    {
+      "slug": "trademark-registration",
+      "title": "Trademark Registration",
+      "category": "registration",
+      "icon": "ph-trademark",
+      "excerpt": "Search, classification, filing and objection replies to secure your brand across all 45 classes.",
+      "featured": true,
+      "timeline": "Filing in 3–5 days",
+      "keywords": ["trademark", "brand", "tm", "logo", "ipr", "objection", "opposition"]
+    },
+    {
+      "slug": "company-incorporation",
+      "title": "Company Incorporation",
+      "category": "registration",
+      "icon": "ph-building-office",
+      "excerpt": "Private limited, LLP, OPC and partnership formation including DIN, DSC, MOA and AOA.",
+      "featured": true,
+      "timeline": "7–12 working days",
+      "keywords": ["company", "incorporation", "private limited", "llp", "opc", "startup", "moa", "aoa"]
+    },
+    {
+      "slug": "ngo-trust-society",
+      "title": "NGO, Trust & Society",
+      "category": "registration",
+      "icon": "ph-users-three",
+      "excerpt": "Formation of trusts, societies and Section 8 companies, plus 12A and 80G approvals.",
+      "timeline": "15–30 days",
+      "keywords": ["ngo", "trust", "society", "section 8", "12a", "80g", "darpan"]
+    },
+    {
+      "slug": "msme-udyam",
+      "title": "MSME / Udyam Registration",
+      "category": "registration",
+      "icon": "ph-factory",
+      "excerpt": "Udyam registration to unlock priority lending, subsidies and tender eligibility.",
+      "timeline": "1–2 working days",
+      "keywords": ["msme", "udyam", "ssi", "small business", "subsidy"]
+    },
+    {
+      "slug": "fssai-licence",
+      "title": "FSSAI Food Licence",
+      "category": "registration",
+      "icon": "ph-fork-knife",
+      "excerpt": "Basic, State and Central FSSAI licensing for manufacturers, traders and restaurants.",
+      "timeline": "7–21 days",
+      "keywords": ["fssai", "food", "licence", "restaurant", "hygiene"]
+    },
+    {
+      "slug": "rera-registration",
+      "title": "RERA Registration",
+      "category": "registration",
+      "icon": "ph-buildings",
+      "excerpt": "Promoter and agent registration, project filings and quarterly RERA compliance.",
+      "timeline": "20–40 days",
+      "keywords": ["rera", "real estate", "promoter", "agent", "project"]
+    },
+    {
+      "slug": "iec-code",
+      "title": "Import Export Code (IEC)",
+      "category": "registration",
+      "icon": "ph-globe-hemisphere-east",
+      "excerpt": "IEC issuance and modification for importers and exporters, with DGFT liaison.",
+      "timeline": "2–4 working days",
+      "keywords": ["iec", "import", "export", "dgft", "trade"]
+    },
+    {
+      "slug": "shop-establishment",
+      "title": "Shop & Establishment",
+      "category": "registration",
+      "icon": "ph-storefront",
+      "excerpt": "Trade licence and Shops & Establishments registration with state labour departments.",
+      "timeline": "5–10 days",
+      "keywords": ["shop", "establishment", "trade licence", "gumasta"]
+    },
+    {
+      "slug": "marriage-registration",
+      "title": "Marriage Registration",
+      "category": "registration",
+      "icon": "ph-rings",
+      "excerpt": "Hindu and Special Marriage Act registration, including court marriage assistance.",
+      "timeline": "30 days (Special Act)",
+      "keywords": ["marriage", "registration", "court marriage", "special marriage act", "certificate"]
+    },
+    {
+      "slug": "dsc-registration",
+      "title": "Digital Signature (DSC)",
+      "category": "registration",
+      "icon": "ph-signature",
+      "excerpt": "Class 3 digital signature certificates for tenders, ROC and income tax filings.",
+      "timeline": "Same day",
+      "keywords": ["dsc", "digital signature", "class 3", "token", "tender"]
+    },
+    {
+      "slug": "barcode-apeda",
+      "title": "Barcode & APEDA",
+      "category": "registration",
+      "icon": "ph-barcode",
+      "excerpt": "GS1 barcode allotment and APEDA registration for agricultural exporters.",
+      "timeline": "5–15 days",
+      "keywords": ["barcode", "gs1", "apeda", "agri", "export"]
+    },
+
+    {
+      "slug": "roc-compliance",
+      "title": "ROC & Annual Compliance",
+      "category": "compliance",
+      "icon": "ph-files",
+      "excerpt": "Annual returns, board minutes, director KYC and every mandatory MCA filing.",
+      "featured": true,
+      "timeline": "Ongoing / annual",
+      "keywords": ["roc", "mca", "annual return", "aoc-4", "mgt-7", "din kyc", "compliance"]
+    },
+    {
+      "slug": "data-privacy-compliance",
+      "title": "Data Privacy Compliance",
+      "category": "compliance",
+      "icon": "ph-lock-laminated",
+      "excerpt": "DPDP Act readiness, privacy policies, consent flows and breach response playbooks.",
+      "featured": true,
+      "timeline": "2–6 weeks",
+      "keywords": ["data privacy", "dpdp", "gdpr", "policy", "consent", "breach"]
+    },
+    {
+      "slug": "legal-audit",
+      "title": "Legal Audit",
+      "category": "compliance",
+      "icon": "ph-magnifying-glass",
+      "excerpt": "A structured review of contracts, licences and filings to surface risk before it surfaces itself.",
+      "timeline": "2–4 weeks",
+      "keywords": ["legal audit", "due diligence", "risk", "review", "contracts"]
+    },
+    {
+      "slug": "contract-drafting",
+      "title": "Contract Drafting & Review",
+      "category": "compliance",
+      "icon": "ph-file-text",
+      "excerpt": "Commercial agreements, MSAs, NDAs and employment contracts drafted and negotiated.",
+      "timeline": "3–7 days",
+      "keywords": ["contract", "agreement", "nda", "msa", "drafting", "review", "vendor"]
+    },
+    {
+      "slug": "labour-registrations",
+      "title": "PF, ESI & TAN",
+      "category": "compliance",
+      "icon": "ph-identification-card",
+      "excerpt": "Employer registrations and monthly returns for provident fund, ESI and tax deduction.",
+      "timeline": "5–12 days",
+      "keywords": ["pf", "epfo", "esi", "tan", "employer", "payroll", "tds"]
+    },
+    {
+      "slug": "poa-drafting",
+      "title": "Power of Attorney",
+      "category": "property",
+      "icon": "ph-hand-pointing",
+      "excerpt": "General and special POA drafted, notarised and registered, including for NRI principals.",
+      "timeline": "2–5 days",
+      "keywords": ["poa", "power of attorney", "nri", "notary", "special", "general"]
+    },
+    {
+      "slug": "title-search-report",
+      "title": "Title Search & Report",
+      "category": "property",
+      "icon": "ph-scroll",
+      "excerpt": "Chain-of-title verification and formal search reports accepted by lenders.",
+      "featured": true,
+      "timeline": "7–15 days",
+      "keywords": ["title", "search", "report", "property", "encumbrance", "chain", "due diligence"]
+    },
+    {
+      "slug": "mutation-conversion",
+      "title": "Mutation & Land Conversion",
+      "category": "property",
+      "icon": "ph-map-trifold",
+      "excerpt": "Record-of-rights mutation and agricultural-to-residential conversion applications.",
+      "timeline": "30–90 days",
+      "keywords": ["mutation", "conversion", "land", "record of rights", "khatian"]
+    },
+    {
+      "slug": "property-registration",
+      "title": "Sale Deed & Registration",
+      "category": "property",
+      "icon": "ph-key",
+      "excerpt": "Deed drafting, stamp duty assessment and registration at the sub-registrar's office.",
+      "timeline": "7–20 days",
+      "keywords": ["sale deed", "registration", "stamp duty", "conveyance", "gift deed", "property"]
+    },
+    {
+      "slug": "will-succession",
+      "title": "Wills & Succession",
+      "category": "property",
+      "icon": "ph-tree-structure",
+      "excerpt": "Will drafting, probate, succession and legal heir certificate applications.",
+      "timeline": "10–45 days",
+      "keywords": ["will", "probate", "succession", "legal heir", "inheritance", "testament"]
+    },
+
+    {
+      "slug": "gst-registration-advisory",
+      "title": "GST Registration & Advisory",
+      "category": "financial",
+      "icon": "ph-percent",
+      "excerpt": "Registration, monthly returns, input-credit reconciliation and notice replies.",
+      "featured": true,
+      "timeline": "3–7 working days",
+      "keywords": ["gst", "registration", "return", "gstr", "input credit", "tax", "notice"]
+    },
+    {
+      "slug": "income-tax-filing",
+      "title": "Income Tax Returns",
+      "category": "financial",
+      "icon": "ph-calculator",
+      "excerpt": "ITR preparation and filing for individuals, firms and companies, with notice handling.",
+      "featured": true,
+      "timeline": "2–5 working days",
+      "keywords": ["income tax", "itr", "return", "filing", "refund", "notice", "143"]
+    },
+    {
+      "slug": "gst-audit",
+      "title": "GST Audit",
+      "category": "financial",
+      "icon": "ph-clipboard-text",
+      "excerpt": "Annual reconciliation, GSTR-9 and 9C preparation and departmental audit support.",
+      "timeline": "2–5 weeks",
+      "keywords": ["gst audit", "gstr-9", "gstr-9c", "reconciliation", "annual"]
+    },
+    {
+      "slug": "accounting-bookkeeping",
+      "title": "Accounting & Bookkeeping",
+      "category": "financial",
+      "icon": "ph-books",
+      "excerpt": "Monthly books, ledger management and MIS reporting on Tally or Excel.",
+      "timeline": "Monthly retainer",
+      "keywords": ["accounting", "bookkeeping", "tally", "excel", "ledger", "mis", "books"]
+    }
+  ]
+}

@@ -1,0 +1,386 @@
+/* ==========================================================================
+   HOMEPAGE SECTIONS
+   Loaded after hero.css. About, services, practice areas, team preview.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   ABOUT — editorial split
+   -------------------------------------------------------------------------- */
+.about__grid {
+  display: grid;
+  grid-template-columns: 1fr 1.05fr;
+  gap: clamp(2rem, 1rem + 5vw, 5rem);
+  align-items: center;
+}
+@media (max-width: 991px) { .about__grid { grid-template-columns: 1fr; } }
+
+.about__media {
+  position: relative;
+  isolation: isolate;
+}
+.about__img {
+  width: 100%;
+  aspect-ratio: 4 / 4.6;
+  object-fit: cover;
+  border-radius: var(--r-md);
+  display: block;
+}
+/* Thin gold frame offset behind the photograph. */
+.about__media::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: clamp(1rem, 2vw, 1.75rem) calc(-1 * clamp(1rem, 2vw, 1.75rem))
+         calc(-1 * clamp(1rem, 2vw, 1.75rem)) clamp(1rem, 2vw, 1.75rem);
+  border: 1px solid var(--accent);
+  border-radius: var(--r-md);
+}
+
+/* Experience badge over the image */
+.about__badge {
+  position: absolute;
+  right: clamp(-1rem, -2vw, -0.5rem);
+  bottom: clamp(1.5rem, 4vw, 3rem);
+  z-index: 2;
+  padding: var(--sp-5) var(--sp-6);
+  background: var(--color-primary);
+  border-left: 2px solid var(--accent);
+  border-radius: var(--r-sm);
+  box-shadow: var(--sh-md);
+}
+.about__badge b {
+  display: block;
+  font-family: var(--font-display);
+  font-size: var(--fs-2xl);
+  line-height: 1;
+  color: var(--gold-400);
+}
+.about__badge span {
+  display: block;
+  margin-top: var(--sp-2);
+  font-size: var(--fs-xs);
+  letter-spacing: var(--tracking-wide);
+  color: var(--navy-100);
+  max-width: 12ch;
+}
+
+/* Decorative gold rule under the section heading */
+.gold-rule {
+  width: 56px;
+  height: 2px;
+  margin: var(--sp-5) 0 var(--sp-6);
+  background: var(--accent);
+  border: 0;
+}
+.gold-rule--center { margin-inline: auto; }
+
+.about__lede {
+  font-size: var(--fs-md);
+  color: var(--text);
+  font-weight: 500;
+}
+.about__body { margin-top: var(--sp-4); }
+
+.about__points {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr));
+  gap: var(--sp-5);
+  margin: var(--sp-8) 0;
+  padding: var(--sp-6) 0;
+  border-block: 1px solid var(--border);
+}
+.about__point { display: flex; gap: var(--sp-3); align-items: flex-start; }
+.about__point i { color: var(--accent); font-size: 1.4rem; flex-shrink: 0; }
+.about__point b { display: block; font-size: var(--fs-sm); color: var(--text); }
+.about__point span { font-size: var(--fs-xs); color: var(--text-muted); }
+
+.about__sign {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-5);
+  margin-top: var(--sp-8);
+  flex-wrap: wrap;
+}
+.about__sign-name {
+  font-family: var(--font-display);
+  font-size: var(--fs-md);
+  color: var(--text);
+}
+.about__sign-role {
+  font-size: var(--fs-xs);
+  color: var(--text-muted);
+  letter-spacing: var(--tracking-wide);
+}
+
+/* --------------------------------------------------------------------------
+   PRACTICE AREA CARDS
+   -------------------------------------------------------------------------- */
+.practice-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 19rem), 1fr));
+  gap: var(--sp-5);
+}
+
+.practice-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+  padding: var(--sp-8) var(--sp-6);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  overflow: hidden;
+  /* border-color/box-shadow/transform transitions live in animation.css,
+     which also owns the [data-reveal="card"] scroll-reveal timing for this
+     element — declaring a competing shorthand here would reset
+     transition-property and silently drop that reveal's opacity/transform. */
+}
+/* Gold rule that draws across the top on hover. */
+.practice-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 2px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--dur-base) var(--ease-out);
+}
+.practice-card:hover {
+  border-color: var(--border-strong);
+  box-shadow: var(--sh-md);
+}
+.practice-card:hover::before { transform: scaleX(1); }
+
+.practice-card__icon {
+  display: grid;
+  place-items: center;
+  width: 54px;
+  height: 54px;
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  background: var(--accent-soft);
+  color: var(--accent-text);
+  font-size: 1.65rem;
+  transition: background-color var(--dur-base) var(--ease-out),
+              color var(--dur-base) var(--ease-out),
+              border-color var(--dur-base) var(--ease-out);
+}
+.practice-card:hover .practice-card__icon {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: var(--gold-400);
+}
+
+.practice-card h3 { font-size: var(--fs-md); }
+.practice-card h3 a { color: var(--text); }
+.practice-card h3 a::after { content: ""; position: absolute; inset: 0; }
+.practice-card:hover h3 a { color: var(--accent-text); }
+.practice-card p {
+  flex-grow: 1;
+  font-size: var(--fs-sm);
+  color: var(--text-muted);
+}
+.practice-card__more {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--accent-text);
+}
+.practice-card__more i { transition: transform var(--dur-base) var(--ease-out); }
+.practice-card:hover .practice-card__more i { transform: translateX(4px); }
+
+/* --------------------------------------------------------------------------
+   WHY CHOOSE US
+   -------------------------------------------------------------------------- */
+.reason-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr));
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  overflow: hidden;
+}
+.reason {
+  padding: var(--sp-8) var(--sp-6);
+  background: var(--surface);
+  transition: background-color var(--dur-base) var(--ease-out);
+}
+.reason:hover { background: var(--bg-subtle); }
+.reason__n {
+  display: block;
+  font-family: var(--font-display);
+  font-size: var(--fs-sm);
+  color: var(--accent);
+  letter-spacing: var(--tracking-caps);
+  margin-bottom: var(--sp-4);
+}
+.reason i {
+  display: block;
+  font-size: 1.9rem;
+  color: var(--accent);
+  margin-bottom: var(--sp-4);
+}
+.reason h3 { font-size: var(--fs-md); margin-bottom: var(--sp-3); }
+.reason p { font-size: var(--fs-sm); color: var(--text-muted); }
+
+/* --------------------------------------------------------------------------
+   TEAM PREVIEW
+   -------------------------------------------------------------------------- */
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
+  gap: var(--sp-6);
+}
+
+.member {
+  position: relative;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  overflow: hidden;
+  /* transitions (incl. the [data-reveal="card"] scroll-reveal) live in animation.css */
+}
+.member:hover { border-color: var(--border-strong); box-shadow: var(--sh-md); }
+
+.member__photo {
+  position: relative;
+  aspect-ratio: 3 / 3.4;
+  overflow: hidden;
+  background: var(--color-primary);
+}
+.member__photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  filter: grayscale(1) contrast(1.02);
+  transition: filter var(--dur-slow) var(--ease-out),
+              transform var(--dur-slow) var(--ease-out);
+}
+.member:hover .member__photo img {
+  filter: grayscale(0);
+  transform: scale(1.03);
+}
+
+.member__body {
+  padding: var(--sp-5);
+  border-top: 2px solid var(--accent);
+}
+.member h3 { font-size: var(--fs-md); }
+.member__role {
+  margin-top: var(--sp-1);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--accent-text);
+}
+.member__focus {
+  margin-top: var(--sp-3);
+  font-size: var(--fs-sm);
+  color: var(--text-muted);
+}
+
+/* --------------------------------------------------------------------------
+   PLACEHOLDER FLAG — for values the firm must replace before launch
+   -------------------------------------------------------------------------- */
+.placeholder-note {
+  display: flex;
+  gap: var(--sp-3);
+  align-items: flex-start;
+  max-width: 62rem;
+  margin: var(--sp-8) auto 0;
+  padding: var(--sp-4) var(--sp-5);
+  background: var(--accent-soft);
+  border-left: 2px solid var(--accent);
+  border-radius: var(--r-sm);
+  font-size: var(--fs-xs);
+  color: var(--text-body);
+}
+.placeholder-note i { color: var(--accent-text); font-size: 1.1rem; flex-shrink: 0; }
+.placeholder-note strong { color: var(--text); }
+
+.section--ink .placeholder-note {
+  background: rgba(255, 255, 255, 0.05);
+  border-left-color: var(--gold-400);
+  color: var(--navy-100);
+}
+.section--ink .placeholder-note i { color: var(--gold-400); }
+.section--ink .placeholder-note strong { color: var(--color-white); }
+
+/* --------------------------------------------------------------------------
+   FINAL CTA
+   -------------------------------------------------------------------------- */
+.final-cta {
+  position: relative;
+  overflow: hidden;
+  background: var(--color-primary);
+  border-top: 2px solid var(--accent);
+  isolation: isolate;
+}
+.final-cta__grid {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: clamp(2rem, 1rem + 4vw, 4rem);
+  align-items: center;
+}
+@media (max-width: 991px) { .final-cta__grid { grid-template-columns: 1fr; } }
+
+.final-cta h2 { color: var(--color-white); max-width: 22ch; }
+.final-cta p {
+  margin-top: var(--sp-5);
+  max-width: 52ch;
+  color: var(--navy-100);
+  font-size: var(--fs-md);
+}
+.final-cta__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-4);
+  margin-top: var(--sp-8);
+}
+
+.final-cta__aside {
+  padding: var(--sp-8);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: var(--r-md);
+}
+.final-cta__aside h3 {
+  color: var(--color-white);
+  font-size: var(--fs-md);
+  margin-bottom: var(--sp-5);
+}
+.final-cta__line {
+  display: flex;
+  gap: var(--sp-4);
+  align-items: flex-start;
+  padding-block: var(--sp-4);
+  border-top: 1px solid rgba(255, 255, 255, 0.10);
+  font-size: var(--fs-sm);
+  color: var(--navy-100);
+}
+.final-cta__line:first-of-type { border-top: 0; padding-top: 0; }
+.final-cta__line i { color: var(--gold-400); font-size: 1.3rem; flex-shrink: 0; }
+.final-cta__line b { display: block; color: var(--color-white); }
+.final-cta__line a { color: var(--gold-400); }
+
+/* --------------------------------------------------------------------------
+   SECTION LINK — heading-level "view all"
+   -------------------------------------------------------------------------- */
+.section-head--row {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--sp-6);
+  flex-wrap: wrap;
+  max-width: none;
+}
+.section-head--row > div { max-width: 46rem; }

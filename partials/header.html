@@ -1,0 +1,151 @@
+<div class="topbar">
+  <div class="container topbar__inner">
+    <div class="topbar__items">
+      <a class="topbar__item" href="tel:+919331222555">
+        <i class="ph ph-phone-call" aria-hidden="true"></i><span>+91 93312 22555</span>
+      </a>
+      <a class="topbar__item" href="mailto:info@legal.oneisok.co">
+        <i class="ph ph-envelope-simple" aria-hidden="true"></i><span>info@legal.oneisok.co</span>
+      </a>
+      <span class="topbar__item">
+        <i class="ph ph-map-pin" aria-hidden="true"></i><span>141/1B Lenin Sarani, Kolkata 700013</span>
+      </span>
+    </div>
+    <div class="topbar__social">
+      <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="ph ph-facebook-logo" aria-hidden="true"></i></a>
+      <a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="ph ph-linkedin-logo" aria-hidden="true"></i></a>
+      <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="ph ph-instagram-logo" aria-hidden="true"></i></a>
+    </div>
+  </div>
+</div>
+
+<header class="site-header" id="siteHeader">
+  <div class="container header__inner">
+    <a class="logo" href="index.html" aria-label="OneisOk Legal Consultancy — home">
+      <span class="logo__mark" aria-hidden="true"><i class="ph-fill ph-scales"></i></span>
+      <span class="logo__text">
+        <span class="logo__name">OneisOk</span>
+        <span class="logo__sub">Legal Consultancy</span>
+      </span>
+    </a>
+
+    <nav class="nav" id="primaryNav" aria-label="Primary">
+      <div class="nav__item">
+        <a class="nav__link" href="index.html" data-nav="index">Home</a>
+      </div>
+
+      <!-- About Us: hover on desktop, click-toggle for keyboard/touch -->
+      <div class="nav__item nav__item--has-sub" data-dropdown>
+        <a class="nav__link" href="about.html" data-nav="about">About Us</a>
+        <button class="nav__caret" type="button"
+                aria-expanded="false" aria-controls="aboutSubmenu"
+                aria-label="Open About Us submenu" data-dropdown-toggle>
+          <i class="ph ph-caret-down" aria-hidden="true"></i>
+        </button>
+
+        <ul class="submenu" id="aboutSubmenu" role="list">
+          <li>
+            <a class="submenu__link" href="team.html" data-nav="team">
+              <span class="submenu__icon" aria-hidden="true"><i class="ph ph-users-three"></i></span>
+              <span>
+                <span class="submenu__title">Team Members</span>
+                <span class="submenu__desc">The consultants handling your matter</span>
+              </span>
+            </a>
+          </li>
+          <li>
+            <a class="submenu__link" href="faq.html" data-nav="faq">
+              <span class="submenu__icon" aria-hidden="true"><i class="ph ph-question"></i></span>
+              <span>
+                <span class="submenu__title">FAQ</span>
+                <span class="submenu__desc">Fees, timelines and what to expect</span>
+              </span>
+            </a>
+          </li>
+          <li>
+            <a class="submenu__link" href="blogs.html" data-nav="blogs">
+              <span class="submenu__icon" aria-hidden="true"><i class="ph ph-article"></i></span>
+              <span>
+                <span class="submenu__title">Blogs</span>
+                <span class="submenu__desc">Plain-language legal guidance</span>
+              </span>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="nav__item">
+        <a class="nav__link" href="services.html" data-nav="services">Services</a>
+      </div>
+      <div class="nav__item">
+        <a class="nav__link" href="contact.html" data-nav="contact">Contact</a>
+      </div>
+    </nav>
+
+    <div class="header__actions">
+      <button class="icon-btn theme-toggle" type="button" aria-label="Toggle colour theme">
+        <i class="ph ph-sun" aria-hidden="true"></i>
+        <i class="ph ph-moon" aria-hidden="true"></i>
+      </button>
+
+      <a class="btn btn--primary btn--sm header__cta" href="get-quote.html" data-nav="get-quote">
+        <i class="ph ph-note-pencil" aria-hidden="true"></i> Get Quote
+      </a>
+
+      <button class="icon-btn burger" type="button" id="burger"
+              aria-label="Open menu" aria-expanded="false" aria-controls="mobileDrawer">
+        <span class="burger__box" aria-hidden="true"><span></span><span></span><span></span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="overlay" data-drawer-close hidden></div>
+
+<aside class="drawer" id="mobileDrawer" aria-label="Mobile menu" aria-hidden="true" inert>
+  <div class="drawer__head">
+    <span class="logo">
+      <span class="logo__mark" aria-hidden="true"><i class="ph-fill ph-scales"></i></span>
+      <span class="logo__text">
+        <span class="logo__name">OneisOk</span>
+        <span class="logo__sub">Legal Consultancy</span>
+      </span>
+    </span>
+    <button class="icon-btn" type="button" data-drawer-close aria-label="Close menu">
+      <i class="ph ph-x" aria-hidden="true"></i>
+    </button>
+  </div>
+
+  <nav class="drawer__nav" aria-label="Mobile">
+    <a class="drawer__link" href="index.html">Home</a>
+
+    <!-- Nested About Us accordion -->
+    <div class="drawer__group">
+      <div class="drawer__row">
+        <a class="drawer__link drawer__link--flush" href="about.html">About Us</a>
+        <button class="drawer__expand" type="button"
+                aria-expanded="false" aria-controls="drawerAboutSub"
+                aria-label="Expand About Us submenu" data-drawer-toggle>
+          <i class="ph ph-caret-down" aria-hidden="true"></i>
+        </button>
+      </div>
+      <ul class="drawer__sub" id="drawerAboutSub" role="list">
+        <li><a href="team.html">Team Members</a></li>
+        <li><a href="faq.html">FAQ</a></li>
+        <li><a href="blogs.html">Blogs</a></li>
+      </ul>
+    </div>
+
+    <a class="drawer__link" href="services.html">Services</a>
+    <a class="drawer__link" href="contact.html">Contact</a>
+  </nav>
+
+  <div class="drawer__cta">
+    <a class="btn btn--primary btn--block" href="get-quote.html">
+      <i class="ph ph-note-pencil" aria-hidden="true"></i> Get Quote
+    </a>
+    <a class="btn btn--ghost btn--block" href="tel:+919331222555">
+      <i class="ph ph-phone-call" aria-hidden="true"></i> +91 93312 22555
+    </a>
+  </div>
+</aside>

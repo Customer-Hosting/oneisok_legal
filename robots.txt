@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+Disallow: /partials/
+Disallow: /thank-you
+
+# Block resource-wasting crawls of the raw data file
+Disallow: /data/
+
+Sitemap: https://legal.oneisok.co/sitemap.xml

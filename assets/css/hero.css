@@ -1,0 +1,324 @@
+/* ==========================================================================
+   HERO SLIDER — full-width cinematic slider
+   Loaded after components.css. Overrides the earlier static hero.
+
+   Performance contract:
+   - Only transform and opacity are animated. Never width/height/top/left.
+   - Slides are stacked in a fixed-height box, so nothing reflows.
+   - Images are object-fit: cover and absolutely positioned: no layout shift.
+   ========================================================================== */
+
+.hero {
+  position: relative;
+  /* All slide content is position:absolute (needed for the crossfade), so
+     .hero has nothing in normal flow to size itself against — it always
+     collapses to min-height. That floor must therefore be tall enough to
+     fit the longest slide's heading + text + buttons, or the buttons get
+     clipped by overflow:hidden. 100vh (not 92vh) with a higher ceiling
+     gives that headroom on real viewports, including short laptop screens. */
+  min-height: clamp(38rem, 100vh, 56rem);
+  padding-block: 0;
+  background: var(--color-primary);
+  overflow: hidden;
+  isolation: isolate;
+  display: grid;
+}
+
+/* Kill the decorative grid texture from the old hero. */
+.hero::before,
+.hero::after { content: none; }
+
+/* --------------------------------------------------------------------------
+   SLIDES
+   -------------------------------------------------------------------------- */
+.hero__slides {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.hero__slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 900ms var(--ease-out), visibility 900ms;
+  will-change: opacity;
+}
+.hero__slide.is-active {
+  opacity: 1;
+  visibility: visible;
+  z-index: 1;
+}
+
+/* The image wrapper clips the zoom so the scale never spills. */
+.hero__media {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.hero__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  /* Ken Burns: rest at 1, and only the ACTIVE slide animates to 1.08.
+     transform-only, so no layout or paint of surrounding boxes. */
+  transform: scale(1);
+  transform-origin: center center;
+  will-change: transform;
+}
+
+/* Runs for the full 5s dwell, then holds until the slide swaps out. */
+.hero__slide.is-active .hero__img {
+  animation: heroZoom 6s var(--ease-out) forwards;
+}
+
+@keyframes heroZoom {
+  from { transform: scale(1); }
+  to   { transform: scale(1.08); }
+}
+
+/* --------------------------------------------------------------------------
+   OVERLAY — keeps text legible over any photograph
+   -------------------------------------------------------------------------- */
+.hero__overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  /* Navy-tinted scrim, heavier on the left where the copy sits. */
+  background:
+    linear-gradient(90deg,
+      rgba(6, 13, 24, 0.92) 0%,
+      rgba(6, 13, 24, 0.78) 38%,
+      rgba(6, 13, 24, 0.48) 72%,
+      rgba(6, 13, 24, 0.38) 100%),
+    linear-gradient(180deg,
+      rgba(6, 13, 24, 0.55) 0%,
+      rgba(6, 13, 24, 0.20) 45%,
+      rgba(6, 13, 24, 0.70) 100%);
+}
+
+/* --------------------------------------------------------------------------
+   CONTENT
+   -------------------------------------------------------------------------- */
+.hero__inner {
+  position: relative;
+  z-index: 3;
+  width: 100%;
+  align-self: center;
+  padding-block: clamp(5.5rem, 4.5rem + 4vw, 7rem) clamp(4rem, 3rem + 4vw, 5.5rem);
+}
+
+.hero__copy { max-width: 46rem; }
+
+.hero__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-3);
+  margin-bottom: var(--sp-5);
+  font-family: var(--font-body);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  letter-spacing: var(--tracking-caps);
+  text-transform: uppercase;
+  color: var(--gold-400);
+}
+.hero__eyebrow::before {
+  content: "";
+  width: 32px;
+  height: 1px;
+  background: var(--gold-400);
+}
+
+.hero__title {
+  color: var(--color-white);
+  font-size: var(--fs-4xl);
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+.hero__title em {
+  font-style: italic;
+  color: var(--gold-400);
+}
+
+.hero__text {
+  max-width: 38rem;
+  margin-top: var(--sp-6);
+  font-size: var(--fs-md);
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-4);
+  margin-top: var(--sp-8);
+}
+
+/* Per-slide entrance: staggered, transform + opacity only. */
+.hero__slide .hero__eyebrow,
+.hero__slide .hero__title,
+.hero__slide .hero__text,
+.hero__slide .hero__actions {
+  opacity: 0;
+  transform: translateY(16px);
+}
+.hero__slide.is-active .hero__eyebrow { animation: heroIn 700ms var(--ease-out) 120ms forwards; }
+.hero__slide.is-active .hero__title   { animation: heroIn 700ms var(--ease-out) 220ms forwards; }
+.hero__slide.is-active .hero__text    { animation: heroIn 700ms var(--ease-out) 340ms forwards; }
+.hero__slide.is-active .hero__actions { animation: heroIn 700ms var(--ease-out) 460ms forwards; }
+
+@keyframes heroIn {
+  to { opacity: 1; transform: none; }
+}
+
+/* --------------------------------------------------------------------------
+   CONTROLS
+   -------------------------------------------------------------------------- */
+.hero__controls {
+  position: absolute;
+  z-index: 4;
+  left: 0;
+  right: 0;
+  bottom: clamp(1.5rem, 1rem + 2vw, 3rem);
+}
+
+.hero__controls-inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-6);
+  flex-wrap: wrap;
+}
+
+/* ---- Pagination ---- */
+.hero__dots {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+}
+
+.hero__dot {
+  position: relative;
+  width: 52px;
+  height: 3px;
+  padding: 0;
+  background: rgba(255, 255, 255, 0.26);
+  border: none;
+  border-radius: var(--r-sm);
+  cursor: pointer;
+  overflow: hidden;
+  transition: background-color var(--dur-fast) var(--ease-out);
+}
+.hero__dot:hover { background: rgba(255, 255, 255, 0.45); }
+.hero__dot:focus-visible {
+  outline: 2px solid var(--gold-400);
+  outline-offset: 4px;
+}
+.hero__dot[aria-current="true"] { background: var(--gold-400); }
+
+/* --------------------------------------------------------------------------
+   RESPONSIVE
+   -------------------------------------------------------------------------- */
+@media (max-width: 767px) {
+  .hero { min-height: clamp(30rem, 80vh, 40rem); }
+  .hero__overlay {
+    background:
+      linear-gradient(180deg,
+        rgba(6, 13, 24, 0.72) 0%,
+        rgba(6, 13, 24, 0.60) 40%,
+        rgba(6, 13, 24, 0.86) 100%);
+  }
+  .hero__controls-inner { justify-content: center; }
+  .hero__arrows { order: 2; }
+  .hero__dots { order: 1; width: 100%; justify-content: center; }
+  .hero__dot { width: 36px; }
+  .hero__count { display: none; }
+  .hero__actions .btn { flex: 1 1 100%; }
+}
+
+/* --------------------------------------------------------------------------
+   REDUCED MOTION — no zoom, no entrance, no dot timer
+   -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .hero__slide.is-active .hero__img { animation: none; transform: none; }
+  .hero__slide .hero__eyebrow,
+  .hero__slide .hero__title,
+  .hero__slide .hero__text,
+  .hero__slide .hero__actions { opacity: 1; transform: none; animation: none; }
+  .hero__dot[aria-current="true"]::after { animation: none; transform: scaleX(1); }
+  .hero__slide { transition-duration: 0.01ms; }
+}
+
+/* ==========================================================================
+   TRUST STRIP — sits directly under the hero
+   ========================================================================== */
+.trust-strip {
+  background: var(--color-primary);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding-block: clamp(1.5rem, 1rem + 2vw, 2.25rem);
+}
+
+.trust-strip__inner {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--sp-6);
+}
+
+.trust-strip__item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--sp-4);
+  font-size: var(--fs-sm);
+  color: var(--navy-200);
+}
+.trust-strip__item + .trust-strip__item {
+  padding-left: var(--sp-6);
+  border-left: 1px solid rgba(255, 255, 255, 0.10);
+}
+.trust-strip__item i {
+  flex-shrink: 0;
+  font-size: 1.6rem;
+  color: var(--gold-400);
+}
+.trust-strip__item b {
+  display: block;
+  color: var(--color-white);
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+
+@media (max-width: 991px) {
+  .trust-strip__inner { grid-template-columns: repeat(2, 1fr); }
+  .trust-strip__item:nth-child(3) { padding-left: 0; border-left: 0; }
+}
+@media (max-width: 575px) {
+  .trust-strip__inner { grid-template-columns: 1fr; gap: var(--sp-4); }
+  .trust-strip__item + .trust-strip__item { padding-left: 0; border-left: 0; }
+}
+
+/* ==========================================================================
+   CALL-BACK SECTION — the enquiry form relocated out of the hero
+   ========================================================================== */
+.callback__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(2rem, 1rem + 4vw, 4.5rem);
+  align-items: center;
+}
+@media (max-width: 991px) {
+  .callback__grid { grid-template-columns: 1fr; }
+}
+
+/* The card carried hero-specific elevation; on a light section a
+   hairline border is enough. */
+.callback__grid .consult-card {
+  border: 1px solid var(--border);
+  box-shadow: var(--sh-sm);
+}

@@ -1,0 +1,204 @@
+/* ==========================================================================
+   NAVIGATION — desktop dropdown + mobile drawer with nested submenu
+   Loaded after components.css; overrides the earlier mega-menu styles.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   DESKTOP: About Us dropdown
+   -------------------------------------------------------------------------- */
+.nav__item--has-sub { display: flex; align-items: center; }
+
+/* Caret sits beside the link so the label itself stays a real navigable link. */
+.nav__caret {
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  margin-left: -6px;
+  padding: 0;
+  background: none;
+  border: none;
+  border-radius: var(--r-sm);
+  color: var(--text);
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: transform var(--dur-base) var(--ease-out),
+              color var(--dur-fast) var(--ease-out),
+              background-color var(--dur-fast) var(--ease-out);
+}
+.nav__caret:hover { color: var(--accent); background: var(--bg-subtle); }
+
+.nav__item--has-sub:hover .nav__caret,
+.nav__caret[aria-expanded="true"] { transform: rotate(180deg); color: var(--accent); }
+
+.nav__item--has-sub:hover > .nav__link,
+.nav__item--has-sub:focus-within > .nav__link { color: var(--accent); }
+
+.submenu {
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 0;
+  z-index: var(--z-header);
+  width: min(92vw, 380px);
+  margin: 0;
+  padding: var(--sp-3);
+  list-style: none;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  box-shadow: var(--sh-md);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-8px);
+  transition: opacity var(--dur-base) var(--ease-out),
+              transform var(--dur-base) var(--ease-out),
+              visibility var(--dur-base);
+}
+
+/* A small bridge stops the menu closing as the pointer crosses the gap. */
+.submenu::before {
+  content: "";
+  position: absolute;
+  inset: -12px 0 auto 0;
+  height: 12px;
+}
+
+.nav__item--has-sub:hover > .submenu,
+.nav__item--has-sub:focus-within > .submenu,
+.submenu.is-open {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.submenu__link {
+  display: flex;
+  gap: var(--sp-4);
+  align-items: flex-start;
+  padding: var(--sp-3);
+  border-radius: var(--r-md);
+  color: var(--text);
+  transition: background-color var(--dur-fast) var(--ease-out);
+}
+.submenu__link:hover { background: var(--bg-subtle); color: var(--text); }
+.submenu__link[aria-current="page"] { background: var(--accent-soft); }
+.submenu__link[aria-current="page"] .submenu__title { color: var(--accent); }
+
+.submenu__icon {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 38px;
+  height: 38px;
+  border-radius: var(--r-md);
+  background: var(--accent-soft);
+  color: var(--gold-600);
+  font-size: 1.15rem;
+}
+.submenu__title { display: block; font-weight: 600; font-size: var(--fs-sm); }
+.submenu__desc {
+  display: block;
+  font-size: var(--fs-xs);
+  color: var(--text-muted);
+  line-height: 1.5;
+  margin-top: 1px;
+}
+
+/* --------------------------------------------------------------------------
+   MOBILE DRAWER: nested accordion
+   -------------------------------------------------------------------------- */
+.drawer__group { border-bottom: 1px solid var(--border); }
+
+.drawer__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-2);
+}
+.drawer__link--flush {
+  flex: 1;
+  border-bottom: 0;
+}
+
+.drawer__expand {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  color: var(--text);
+  font-size: 1rem;
+  cursor: pointer;
+  transition: transform var(--dur-base) var(--ease-out),
+              background-color var(--dur-fast) var(--ease-out),
+              border-color var(--dur-fast) var(--ease-out),
+              color var(--dur-fast) var(--ease-out);
+}
+.drawer__expand:hover { border-color: var(--accent); color: var(--accent); }
+.drawer__expand[aria-expanded="true"] {
+  transform: rotate(180deg);
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--on-accent);
+}
+
+/* grid-template-rows animates to auto height without hardcoding a max. */
+.drawer__sub {
+  display: grid;
+  grid-template-rows: 0fr;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  transition: grid-template-rows var(--dur-slow) var(--ease-out);
+}
+.drawer__sub.is-open { grid-template-rows: 1fr; }
+
+.drawer__sub > li { overflow: hidden; }
+.drawer__sub li:first-child { padding-top: var(--sp-1); }
+.drawer__sub li:last-child { padding-bottom: var(--sp-4); }
+
+.drawer__sub a {
+  display: block;
+  padding: var(--sp-3) var(--sp-3) var(--sp-3) var(--sp-8);
+  font-size: var(--fs-sm);
+  color: var(--text-body);
+  border-radius: var(--r-sm);
+  position: relative;
+}
+.drawer__sub a::before {
+  content: "";
+  position: absolute;
+  left: var(--sp-4);
+  top: 50%;
+  width: 6px;
+  height: 1px;
+  background: var(--border-strong);
+}
+.drawer__sub a:hover { color: var(--accent); background: var(--bg-subtle); }
+.drawer__sub a[aria-current="page"] { color: var(--accent); font-weight: 600; }
+
+/* Whole sub-list is hidden from AT and tab order while collapsed. */
+.drawer__sub:not(.is-open) a { visibility: hidden; }
+.drawer__sub.is-open a { visibility: visible; }
+
+/* --------------------------------------------------------------------------
+   Breakpoint switch
+   -------------------------------------------------------------------------- */
+@media (max-width: 1023px) {
+  .nav,
+  .header__actions .header__cta { display: none; }
+  .burger { display: grid; }
+}
+
+@media (min-width: 1024px) {
+  .drawer, .overlay { display: none !important; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .submenu, .drawer, .drawer__sub, .nav__caret, .drawer__expand {
+    transition-duration: 0.01ms !important;
+  }
+}
