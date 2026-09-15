@@ -158,7 +158,8 @@
   /* ------------------------------------------------------------------
      HERO SLIDER
      Exactly 5s per slide, infinite loop, manual prev/next, dots,
-     pause on desktop hover, pause when the tab is hidden.
+     pause when the tab is hidden. Hover does not pause: autoplay must
+     keep running with the cursor resting over the hero.
 
      The interval is torn down and recreated on every change so a manual
      click always restarts a full 5s dwell rather than inheriting the
@@ -179,7 +180,6 @@
 
     var index = 0;
     var timer = null;
-    var hovering = false;
 
     function paint() {
       slides.forEach(function (s, i) {
@@ -213,7 +213,7 @@
 
     function restart() {
       stop();
-      if (hovering || document.hidden || prefersReduced) return;
+      if (document.hidden || prefersReduced) return;
       timer = setInterval(function () { go(index + 1); }, SLIDE_MS);
     }
 
@@ -227,16 +227,6 @@
     dots.forEach(function (d, i) {
       d.addEventListener("click", function () { go(i); });
     });
-
-    // Pause on hover — pointer devices only, so touch is unaffected.
-    if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
-      root.addEventListener("mouseenter", function () {
-        hovering = true; stop(); setPaused(true);
-      });
-      root.addEventListener("mouseleave", function () {
-        hovering = false; setPaused(false); restart();
-      });
-    }
 
     // Pause when the tab is hidden, resume when it returns.
     document.addEventListener("visibilitychange", function () {
