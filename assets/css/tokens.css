@@ -248,6 +248,11 @@
 }
 
 :root[data-theme="dark"] {
+  /* Tells the browser to render native UI — scrollbars, form controls,
+     spinners — dark too. Without it those stay light on a light-mode OS
+     even though every custom token has flipped. */
+  color-scheme: dark;
+
   --bg:            var(--navy-900);
   --bg-subtle:     var(--navy-800);
   --bg-sunken:     #04090F;
