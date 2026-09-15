@@ -960,6 +960,68 @@
   }
 
   /* ------------------------------------------------------------------
+     WHATSAPP WIDGET — floating button opens a small composer card;
+     submitting hands the typed text to wa.me as a prefilled chat.
+     ------------------------------------------------------------------ */
+  function initWhatsApp() {
+    var widget = document.querySelector("[data-whatsapp-widget]");
+    if (!widget) return;
+
+    var WHATSAPP_NUMBER = "919331222555";
+    var toggles = widget.querySelectorAll("[data-whatsapp-toggle]");
+    var form = widget.querySelector("[data-whatsapp-form]");
+    var input = widget.querySelector("[data-whatsapp-message]");
+
+    /* Closing has to survive the pointer still being over the widget:
+       the hover rule would otherwise re-show the card the instant the
+       class is dropped. is-dismissed suppresses hover until the cursor
+       actually leaves, at which point hover-to-open works again. */
+    function setOpen(open) {
+      widget.classList.toggle("is-open", open);
+      widget.classList.toggle("is-dismissed", !open);
+      toggles[0].setAttribute("aria-expanded", String(open));
+      if (open) setTimeout(function () { input.focus(); }, 200);
+      else if (document.activeElement && widget.contains(document.activeElement)) {
+        document.activeElement.blur();
+      }
+    }
+
+    widget.addEventListener("mouseleave", function () {
+      widget.classList.remove("is-dismissed");
+    });
+
+    toggles.forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        setOpen(!widget.classList.contains("is-open"));
+      });
+    });
+
+    /* The X always closes. It must not share the toggle handler: hover
+       opens the card without setting is-open, so a toggle would read
+       "not open" and re-open it instead of dismissing it. */
+    widget.querySelectorAll("[data-whatsapp-close]").forEach(function (btn) {
+      btn.addEventListener("click", function () { setOpen(false); });
+    });
+
+    document.addEventListener("click", function (e) {
+      if (widget.classList.contains("is-open") && !widget.contains(e.target)) setOpen(false);
+    });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && widget.classList.contains("is-open")) setOpen(false);
+    });
+
+    if (form) {
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+        var text = input.value.trim() || "Hi, I'd like to know more about your services.";
+        window.open("https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(text), "_blank", "noopener,noreferrer");
+        input.value = "";
+        setOpen(false);
+      });
+    }
+  }
+
+  /* ------------------------------------------------------------------
      MISC — active nav, year stamp, cookie bar
      ------------------------------------------------------------------ */
   function initMisc() {
@@ -1008,6 +1070,7 @@
       initServiceDetail();
       initForms();
       initBlogFilter();
+      initWhatsApp();
       initMisc();
     });
   }

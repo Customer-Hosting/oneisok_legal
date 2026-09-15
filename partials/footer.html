@@ -71,15 +71,35 @@
   </div>
 </footer>
 
-<nav class="mobile-bar" aria-label="Quick contact">
-  <div class="mobile-bar__inner">
-    <a href="tel:+919331222555"><i class="ph ph-phone-call" aria-hidden="true"></i><span>Call</span></a>
-    <a href="https://wa.me/919331222555" target="_blank" rel="noopener noreferrer"><i class="ph ph-whatsapp-logo" aria-hidden="true"></i><span>WhatsApp</span></a>
-    <a href="get-quote.html"><i class="ph ph-note-pencil" aria-hidden="true"></i><span>Get Quote</span></a>
-  </div>
-</nav>
-
 <button class="back-to-top" type="button" aria-label="Back to top">
   <i class="ph ph-arrow-up" aria-hidden="true"></i>
 </button>
+
+<div class="whatsapp-float" data-whatsapp-widget>
+  <button class="whatsapp-float__btn" type="button" aria-label="Chat with us on WhatsApp" aria-expanded="false" data-whatsapp-toggle>
+    <i class="ph-fill ph-whatsapp-logo" aria-hidden="true"></i>
+    <i class="ph ph-x" aria-hidden="true"></i>
+  </button>
+
+  <div class="whatsapp-card" role="dialog" aria-label="Chat with OneisOk on WhatsApp">
+    <div class="whatsapp-card__head">
+      <span class="whatsapp-card__brand">
+        <i class="ph-fill ph-whatsapp-logo" aria-hidden="true"></i>
+        <strong>Welcome to Oneisok Legal Consultancy</strong>
+      </span>
+      <button type="button" class="whatsapp-card__close" aria-label="Close chat" data-whatsapp-close>
+        <i class="ph ph-x" aria-hidden="true"></i>
+      </button>
+    </div>
+    <div class="whatsapp-card__body">
+      <p class="whatsapp-card__bubble">Hi, how can I help you?</p>
+      <form data-whatsapp-form>
+        <textarea class="whatsapp-card__input" placeholder="Type your message..." data-whatsapp-message rows="3"></textarea>
+        <button class="whatsapp-card__send" type="submit">
+          Send on WhatsApp <i class="ph ph-paper-plane-right" aria-hidden="true"></i>
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
 

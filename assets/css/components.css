@@ -1027,7 +1027,7 @@
    -------------------------------------------------------------------------- */
 .back-to-top {
   position: fixed;
-  right: var(--sp-6);
+  left: var(--sp-6);
   bottom: var(--sp-6);
   z-index: var(--z-sticky);
   width: 46px; height: 46px;
@@ -1048,37 +1048,195 @@
 .back-to-top.is-visible { opacity: 1; visibility: visible; transform: none; }
 .back-to-top:hover { background: var(--gold-500); color: var(--navy-900); }
 
-/* Phone-first market: a permanent call/WhatsApp bar on mobile. */
-.mobile-bar {
+/* ---- Floating WhatsApp widget ---- */
+.whatsapp-float {
   position: fixed;
-  inset: auto 0 0 0;
-  z-index: var(--z-sticky);
-  display: none;
+  right: var(--sp-6);
+  bottom: var(--sp-6);
+  z-index: var(--z-modal);
+}
+.whatsapp-float__btn {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 56px; height: 56px;
+  border: none;
+  border-radius: var(--r-full);
+  background: var(--gold-400);
+  color: var(--navy-900);
+  font-size: 1.6rem;
+  cursor: pointer;
+  box-shadow: var(--sh-lg);
+  animation: whatsappPulse 2.4s ease-out infinite;
+  transition: transform var(--dur-base) var(--ease-out), box-shadow var(--dur-base) var(--ease-out);
+}
+.whatsapp-float__btn:hover {
+  transform: scale(1.08);
+  box-shadow: var(--sh-xl);
+}
+.whatsapp-float__btn i { grid-area: 1 / 1; transition: opacity var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out); }
+.whatsapp-float__btn .ph-x { opacity: 0; transform: scale(0.5) rotate(-45deg); }
+.whatsapp-float__btn .ph-fill.ph-whatsapp-logo { opacity: 1; transform: none; }
+.whatsapp-float.is-open .whatsapp-float__btn .ph-x { opacity: 1; transform: none; }
+.whatsapp-float.is-open .whatsapp-float__btn .ph-fill.ph-whatsapp-logo { opacity: 0; transform: scale(0.5) rotate(45deg); }
+.whatsapp-float.is-open .whatsapp-float__btn { animation: none; background: var(--charcoal-700); }
+
+/* Hover opens the card, and it stays open while the pointer is anywhere
+   over the widget — including the card itself, which is why the card sits
+   inside .whatsapp-float and keeps pointer-events:auto here. A bridging
+   gap would break the hover chain, so ::before spans the space between
+   the button and the card to keep the cursor "inside" while travelling.
+   Focus-within holds it open for keyboard users and while typing. */
+.whatsapp-float:not(.is-dismissed):hover .whatsapp-card,
+.whatsapp-float:not(.is-dismissed):focus-within .whatsapp-card {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+.whatsapp-float::before {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: 100%;
+  width: 56px;
+  height: var(--sp-4);
+}
+
+.whatsapp-card {
+  position: absolute;
+  right: 0;
+  bottom: calc(100% + var(--sp-4));
+  width: min(90vw, 320px);
   background: var(--surface);
-  border-top: 1px solid var(--border);
-  box-shadow: 0 -4px 20px rgba(11, 27, 51, 0.1);
-  padding: var(--sp-2);
-  padding-bottom: max(var(--sp-2), env(safe-area-inset-bottom));
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  box-shadow: var(--sh-xl);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(12px) scale(0.97);
+  transform-origin: bottom right;
+  transition: opacity var(--dur-base) var(--ease-out),
+              transform var(--dur-base) var(--ease-out),
+              visibility var(--dur-base);
+  pointer-events: none;
 }
-.mobile-bar__inner { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--sp-2); }
-.mobile-bar a {
+.whatsapp-float.is-open .whatsapp-card {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  pointer-events: auto;
+}
+.whatsapp-card__head {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 2px;
-  padding: var(--sp-2);
-  font-size: 0.6875rem;
-  font-weight: 600;
-  color: var(--text);
-  border-radius: var(--r-md);
+  justify-content: space-between;
+  gap: var(--sp-3);
+  padding: var(--sp-4) var(--sp-5);
+  background: var(--gold-400);
+  color: var(--navy-900);
 }
-.mobile-bar a i { font-size: 1.35rem; color: var(--accent); }
-.mobile-bar a:hover { background: var(--bg-subtle); }
+/* min-width:0 lets the long title wrap instead of forcing the flex row
+   wider than the card and pushing the close button out of view. */
+.whatsapp-card__brand {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  min-width: 0;
+  font-size: var(--fs-sm);
+}
+.whatsapp-card__brand strong { min-width: 0; line-height: var(--lh-snug); }
+.whatsapp-card__brand i {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 32px; height: 32px;
+  border-radius: var(--r-md);
+  background: var(--navy-900);
+  color: var(--gold-400);
+  font-size: 1.15rem;
+}
+.whatsapp-card__close {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 28px; height: 28px;
+  border: none;
+  border-radius: var(--r-full);
+  background: transparent;
+  color: var(--navy-900);
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background-color var(--dur-fast) var(--ease-out);
+}
+.whatsapp-card__close:hover { background: rgba(6, 13, 24, 0.14); }
+.whatsapp-card__body { padding: var(--sp-5); display: flex; flex-direction: column; gap: var(--sp-4); }
+.whatsapp-card__bubble {
+  align-self: flex-start;
+  max-width: 85%;
+  padding: var(--sp-3) var(--sp-4);
+  background: var(--bg-subtle);
+  border-radius: var(--r-lg) var(--r-lg) var(--r-lg) 2px;
+  font-size: var(--fs-sm);
+  color: var(--text);
+}
+.whatsapp-card__input {
+  width: 100%;
+  padding: var(--sp-3) var(--sp-4);
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  font-family: inherit;
+  font-size: var(--fs-sm);
+  color: var(--text);
+  resize: none;
+}
+.whatsapp-card__input:focus-visible { outline: 2px solid var(--gold-400); outline-offset: 1px; }
+.whatsapp-card__send {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-2);
+  margin-top: var(--sp-3);
+  padding: var(--sp-3) var(--sp-5);
+  width: 100%;
+  border: none;
+  border-radius: var(--r-full);
+  background: var(--gold-400);
+  color: var(--navy-900);
+  font-weight: 600;
+  font-size: var(--fs-sm);
+  cursor: pointer;
+  transition: background-color var(--dur-fast) var(--ease-out);
+}
+.whatsapp-card__send:hover { background: var(--gold-500); }
+
+@keyframes whatsappPulse {
+  0%, 100% { box-shadow: var(--sh-lg), 0 0 0 0 rgba(176, 141, 60, 0.45); }
+  50% { box-shadow: var(--sh-lg), 0 0 0 10px rgba(176, 141, 60, 0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .whatsapp-float__btn { animation: none; }
+}
 
 @media (max-width: 767px) {
-  .mobile-bar { display: block; }
-  body { padding-bottom: 68px; }
-  .back-to-top { bottom: calc(68px + var(--sp-4)); right: var(--sp-4); }
+  .whatsapp-float { bottom: var(--sp-4); right: var(--sp-4); }
+  /* On a narrow screen the card is pinned to both gutters rather than to
+     the button's right edge, so its width can never exceed the viewport
+     no matter how wide the header's intrinsic content wants to be. */
+  .whatsapp-card {
+    position: fixed;
+    left: var(--sp-4);
+    right: var(--sp-4);
+    bottom: calc(var(--sp-4) + 56px + var(--sp-4));
+    width: auto;
+  }
+  .whatsapp-float:not(.is-open):hover .whatsapp-card { opacity: 0; visibility: hidden; transform: translateY(12px) scale(0.97); }
+}
+
+@media (max-width: 767px) {
+  .back-to-top { bottom: var(--sp-4); left: var(--sp-4); }
 }
 
 .cookie-bar {
@@ -1099,7 +1257,7 @@
 .cookie-bar.is-visible { transform: none; }
 .cookie-bar__actions { display: flex; gap: var(--sp-3); margin-top: var(--sp-4); }
 @media (max-width: 767px) {
-  .cookie-bar { bottom: calc(68px + var(--sp-3)); }
+  .cookie-bar { bottom: var(--sp-3); }
 }
 
 /* --------------------------------------------------------------------------

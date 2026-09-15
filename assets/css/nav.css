@@ -145,20 +145,31 @@
   color: var(--on-accent);
 }
 
-/* grid-template-rows animates to auto height without hardcoding a max. */
+/* Animates to auto height without hardcoding a max. The 0fr/1fr trick
+   only collapses the tracks it actually defines, so every row must be
+   covered — with one track per <li> the extra rows fell through to
+   grid-auto-rows:auto and kept ~109px of dead space while collapsed. */
 .drawer__sub {
   display: grid;
   grid-template-rows: 0fr;
+  grid-auto-rows: 0fr;
   margin: 0;
   padding: 0;
   list-style: none;
-  transition: grid-template-rows var(--dur-slow) var(--ease-out);
+  transition: grid-template-rows var(--dur-slow) var(--ease-out),
+              grid-auto-rows var(--dur-slow) var(--ease-out);
 }
-.drawer__sub.is-open { grid-template-rows: 1fr; }
+.drawer__sub.is-open {
+  grid-template-rows: 1fr;
+  grid-auto-rows: 1fr;
+}
 
+/* Padding must sit on the anchor, not the li. The li is a grid item, so
+   its padding is outside the collapsing 0fr track and would survive as
+   dead space between "About Us" and the next link while collapsed. */
 .drawer__sub > li { overflow: hidden; }
-.drawer__sub li:first-child { padding-top: var(--sp-1); }
-.drawer__sub li:last-child { padding-bottom: var(--sp-4); }
+.drawer__sub li:first-child a { margin-top: var(--sp-1); }
+.drawer__sub li:last-child a { margin-bottom: var(--sp-4); }
 
 .drawer__sub a {
   display: block;

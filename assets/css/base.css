@@ -315,6 +315,6 @@ ul[role="list"], ol[role="list"] { list-style: none; padding: 0; }
 
 /* ---- Print ---- */
 @media print {
-  .site-header, .site-footer, .mobile-bar, .back-to-top, .cookie-bar { display: none !important; }
+  .site-header, .site-footer, .back-to-top, .cookie-bar { display: none !important; }
   body { color: #000; background: #fff; }
 }
