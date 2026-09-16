@@ -178,7 +178,11 @@
    -------------------------------------------------------------------------- */
 .blog-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
+  /* auto-fill, not auto-fit: the category filter hides cards rather than
+     removing them, and auto-fit would collapse the emptied tracks and let
+     the one surviving card stretch across the full row. auto-fill keeps the
+     empty tracks reserved, so a filtered card keeps its normal width. */
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 20rem), 1fr));
   gap: var(--sp-6);
 }
 
