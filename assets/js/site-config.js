@@ -13,6 +13,8 @@ window.SITE = {
   /* --- Contact --- */
   phone: "+919331222555",
   phoneDisplay: "+91 93312 22555",
+  phoneAlt: "+919903628986",
+  phoneAltDisplay: "+91 99036 28986",
   whatsapp: "919331222555",
   email: "info@legal.oneisok.co",
   emailAlt: "oneisokindia@gmail.com",

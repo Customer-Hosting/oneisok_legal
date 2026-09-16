@@ -768,7 +768,7 @@
           "provider": {
             "@type": "LegalService",
             "name": "OneisOk Legal Consultancy",
-            "telephone": "+91-93312-22555",
+            "telephone": ["+91-93312-22555", "+91-99036-28986"],
             "address": {
               "@type": "PostalAddress",
               "streetAddress": "141/1B Lenin Sarani",
