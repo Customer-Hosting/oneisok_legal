@@ -3,6 +3,24 @@
 A premium, fully static legal-consultancy website. **HTML5 + CSS3 + vanilla JavaScript + Lenis.**
 No framework, no build step, no backend, no database.
 
+The same files deploy unchanged to **Vercel** and to **cPanel/Apache shared hosting**.
+Each host reads its own config and ignores the other's: Vercel reads `vercel.json`
+and ignores `.htaccess`; Apache reads `.htaccess` and ignores `vercel.json`.
+
+---
+
+## Deploying to Vercel
+
+The site is already deployed at <https://legal.oneisok.co/>. It is a static
+project with no build step — no framework preset, no build command, no output
+directory. Push to the connected branch and Vercel republishes.
+
+`vercel.json` sets `cleanUrls: true`, which serves `/services` for `services.html`
+and 308-redirects `/services.html` → `/services`. This mirrors what `.htaccess`
+does on Apache, so both hosts expose the same canonical URLs as the `<link rel="canonical">`
+tags and `sitemap.xml`. It also sets the same cache and security headers `.htaccess`
+sets, since Vercel never reads that file.
+
 ---
 
 ## Deploying to cPanel
@@ -75,9 +93,13 @@ npx serve .                    # alternative
 │       └── about/ · blog/ · hero/ · team/
 │
 ├── favicon.ico             Multi-size (16/32/48) — served from the site root
-├── .htaccess               HTTPS, clean URLs, gzip, caching, security headers
+├── .htaccess               Apache/cPanel: HTTPS, clean URLs, gzip, caching, security headers
+├── vercel.json             Vercel: clean URLs + the same caching/security headers
 ├── robots.txt · sitemap.xml · site.webmanifest
 ```
+
+`.htaccess` and `vercel.json` are both kept deliberately. Neither host reads the
+other's file, so shipping both is what lets one set of files serve both targets.
 
 ---
 
@@ -165,8 +187,14 @@ Back-to-top sits bottom-**left** so the two floats never overlap.
 ### Change contact details
 Edit **`assets/js/site-config.js`** for the JS-driven values, then update the same
 details in `partials/header.html`, `partials/footer.html`, and the JSON-LD blocks in
-`index.html` and `contact.html`. Search the project for `9331222555` to catch every
-instance — including the WhatsApp widget in `main.js`.
+`index.html`, `contact.html` and `team.html`.
+
+The site publishes **two** phone numbers — `9331222555` and `9903628986` — so search
+for both to catch every instance. Note that the markup is hardcoded: despite the
+comment at the top of `site-config.js`, nothing currently reads `phone` /
+`phoneDisplay` / `phoneAlt` from that object. Only `whatsapp` and `form` are consumed
+(by `initWhatsApp()` and `initForms()` in `main.js`). Changing a number means editing
+the partials and JSON-LD by hand.
 
 ### Add or edit a service
 Edit **`data/services.json`** only. Adding an entry automatically creates:

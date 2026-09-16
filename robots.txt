@@ -1,9 +1,8 @@
 User-agent: *
 Allow: /
-Disallow: /partials/
-Disallow: /thank-you
 
-# Block resource-wasting crawls of the raw data file
-Disallow: /data/
+# partials/ and data/ are fetched by the page at render time. Blocking them
+# would leave crawlers with an empty header, footer and services grid, so
+# they stay crawlable even though they are not pages themselves.
 
 Sitemap: https://legal.oneisok.co/sitemap.xml

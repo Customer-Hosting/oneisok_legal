@@ -32,14 +32,28 @@ DirectoryIndex index.html
   # Clean URLs: /services  ->  /services.html
   # Redirect the .html form to the extensionless one so only one URL
   # is ever indexed, then rewrite it back internally.
+  #
+  # QSA is required on the redirect: service-detail and get-quote are
+  # driven by ?s=<slug>, and without it the query is dropped and the
+  # page loads with nothing to hydrate from.
+  # index.html redirects to / rather than /index, which is not a
+  # canonical URL on this site.
   # --------------------------------------------------------------------
+  # partials/ and data/ are fetched by JS at their real paths. Redirecting
+  # them to extensionless URLs costs every page two extra round-trips, so
+  # they are excluded from the canonical-URL redirect below.
+  RewriteRule ^(partials|data)/ - [L]
+
+  RewriteCond %{THE_REQUEST} \s/+index\.html[\s?] [NC]
+  RewriteRule ^ / [R=301,L,QSA]
+
   RewriteCond %{THE_REQUEST} \s/+(.+?)\.html[\s?] [NC]
-  RewriteRule ^ /%1 [R=301,L]
+  RewriteRule ^ /%1 [R=301,L,QSA]
 
   RewriteCond %{REQUEST_FILENAME} !-d
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME}\.html -f
-  RewriteRule ^(.+)$ $1.html [L]
+  RewriteRule ^(.+)$ $1.html [L,QSA]
 </IfModule>
 
 # --------------------------------------------------------------------------
