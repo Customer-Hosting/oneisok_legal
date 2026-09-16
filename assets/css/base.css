@@ -6,6 +6,14 @@
 
 * { margin: 0; }
 
+/* The [hidden] attribute is styled by the UA stylesheet, and author styles
+   beat UA styles at any specificity — so any component that sets its own
+   display (.bcard, .service-card, both display:flex) silently defeats
+   element.hidden = true. The blog filter sets exactly that, which is why
+   filtering marked cards hidden without ever hiding them. Restoring the
+   attribute's meaning here keeps it working for every such component. */
+[hidden] { display: none !important; }
+
 html {
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
