@@ -40,6 +40,10 @@
   function initLenis() {
     if (prefersReduced || typeof window.Lenis === "undefined") return;
 
+    // Lenis translates the document on desktop, which breaks native sticky
+    // positioning. Service detail pages rely on sticky navigation and sidebar.
+    if (document.querySelector("[data-service-detail]")) return;
+
     // Touch devices keep their native scroller: momentum there is already
     // native-feeling, and overriding it is what makes a site feel hijacked.
     var coarse = window.matchMedia("(pointer: coarse)").matches;
