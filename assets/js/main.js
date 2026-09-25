@@ -789,6 +789,35 @@
   }
 
   /* ------------------------------------------------------------------
+     SERVICE BACK LINK — fixed-state fallback for reliable sticky behavior
+     ------------------------------------------------------------------ */
+  function initServiceBackLink() {
+    var link = document.querySelector(".service-back-link");
+    if (!link) return;
+
+    var slot = link.closest(".service-back-link-slot");
+    var prose = link.closest(".prose");
+    if (!slot || !prose) return;
+
+    function update() {
+      var offset = (document.getElementById("siteHeader") || {}).offsetHeight || 0;
+      offset += 16;
+
+      var slotRect = slot.getBoundingClientRect();
+      var proseRect = prose.getBoundingClientRect();
+      var sticks = slotRect.top <= offset && proseRect.bottom > offset + link.offsetHeight;
+
+      link.classList.toggle("is-sticky", sticks);
+      if (sticks) link.style.setProperty("--service-back-link-left", Math.max(16, slotRect.left) + "px");
+      else link.style.removeProperty("--service-back-link-left");
+    }
+
+    window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+    update();
+  }
+
+  /* ------------------------------------------------------------------
      QUOTE / CONTACT FORMS
      Static hosting → no backend. Submissions open a prefilled WhatsApp
      thread, with mailto as fallback. Set SITE.form.endpoint to POST
@@ -1062,6 +1091,7 @@
       initSlider();
       initFinder();
       initServiceDetail();
+      initServiceBackLink();
       initForms();
       initBlogFilter();
       initWhatsApp();
