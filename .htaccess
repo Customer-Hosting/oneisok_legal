@@ -4,20 +4,23 @@
 # ==========================================================================
 
 Options -Indexes
-DirectoryIndex index.html
+DirectoryIndex index.php index.html
 
 # --------------------------------------------------------------------------
 # HTTPS + canonical host
-# Uncomment the www block that matches your preference AFTER your SSL
-# certificate is active in cPanel (AutoSSL). Leaving both commented is safe.
+# Keep HTTPS forcing OFF for the first Hpanel upload. A fresh domain/subdomain
+# can fail while SSL/DNS is still being provisioned if this redirect runs too
+# early. After the site opens correctly over https://, uncomment the three
+# "Force HTTPS" lines below.
+# Uncomment one www/non-www block only if you need a canonical host redirect.
 # --------------------------------------------------------------------------
 <IfModule mod_rewrite.c>
   RewriteEngine On
 
-  # Force HTTPS
-  RewriteCond %{HTTPS} !=on
-  RewriteCond %{HTTP:X-Forwarded-Proto} !https
-  RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
+  # Force HTTPS after SSL is active:
+  # RewriteCond %{HTTPS} !=on
+  # RewriteCond %{HTTP:X-Forwarded-Proto} !https
+  # RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
 
   # --- Option A: force non-www (recommended for a subdomain like legal.*) ---
   # RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
